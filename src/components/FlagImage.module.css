@@ -1,0 +1,86 @@
+.flagContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e293b;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.withBorder {
+  border: 1px solid #334155;
+}
+
+/* Size Variants */
+.sizeSm {
+  width: 40px;
+  height: 26px;
+}
+
+.sizeMd {
+  width: 72px;
+  height: 48px;
+}
+
+.sizeLg {
+  width: 144px;
+  height: 96px;
+  border-radius: 8px;
+}
+
+.sizeXl {
+  width: 240px;
+  height: 160px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.sizeResponsive {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  max-width: 320px;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Image Element */
+.flagImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+/* Fallback state when image cannot load */
+.fallbackContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f1f5f9;
+  color: #64748b;
+  font-family: inherit;
+  text-align: center;
+  padding: 4px;
+}
+
+.fallbackCode {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #475569;
+}
+
+.fallbackNotice {
+  font-size: 0.625rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
