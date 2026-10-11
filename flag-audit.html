@@ -1,0 +1,4229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>World Flags — Visual Audit</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px;
+    font: 15px/1.5 system-ui, sans-serif;
+    background: #f4f5f7; color: #1d2430;
+  }
+  header {
+    max-width: 1500px; margin: 0 auto 24px;
+  }
+  h1 { margin-bottom: 6px; }
+  .note { color: #596273; }
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    align-items: center; margin: 20px 0;
+  }
+  input[type="search"] {
+    min-width: 260px; flex: 1; padding: 11px;
+    border: 1px solid #cbd0d8; border-radius: 8px;
+  }
+  button {
+    padding: 10px 14px; cursor: pointer;
+    border: 1px solid #cbd0d8; border-radius: 8px;
+    background: white;
+  }
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 14px; max-width: 1500px; margin: auto;
+  }
+  .card {
+    background: white; border: 1px solid #dce0e6;
+    border-radius: 10px; padding: 12px; min-width: 0;
+  }
+  .flag {
+    height: 112px; display: flex; align-items: center;
+    justify-content: center; margin-bottom: 10px;
+    background: #f8f9fb; border-radius: 5px;
+  }
+  .flag img {
+    max-width: 100%; max-height: 100%;
+    width: auto; height: auto; object-fit: contain;
+  }
+  .name { font-weight: 650; overflow-wrap: anywhere; }
+  .code { font-size: 12px; color: #687386; margin: 2px 0 10px; }
+  .review, .issue { display: block; font-size: 12px; margin-top: 7px; }
+  .issue { color: #a33b30; }
+  .status { font-weight: 600; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>World Flags — Visual Audit</h1>
+  <div class="note">
+    Inspect each flag against a reliable reference. Checking a box records
+    your review in this page only; it does not prove correctness automatically.
+  </div>
+  <div class="toolbar">
+    <input id="search" type="search"
+      placeholder="Search by country name or ISO code…">
+    <span class="status" id="status"></span>
+    <button id="export">Export review report</button>
+  </div>
+  <div class="note">
+    Review checklist state is held in this browser page. Export your report
+    before closing it.
+  </div>
+</header>
+<main id="grid">
+
+    <article class="card" data-search="afghanistan islamic republic of afghanistan af afg">
+      <div class="flag">
+        <img
+          src="public/flags/af.svg"
+          alt="Flag of Afghanistan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Afghanistan</div>
+      <div class="code">AF · AFG</div>
+      <label class="review">
+        <input type="checkbox" data-code="AF">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AF">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="albania republic of albania al alb">
+      <div class="flag">
+        <img
+          src="public/flags/al.svg"
+          alt="Flag of Albania"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Albania</div>
+      <div class="code">AL · ALB</div>
+      <label class="review">
+        <input type="checkbox" data-code="AL">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AL">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="algeria people&#39;s democratic republic of algeria dz dza">
+      <div class="flag">
+        <img
+          src="public/flags/dz.svg"
+          alt="Flag of Algeria"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Algeria</div>
+      <div class="code">DZ · DZA</div>
+      <label class="review">
+        <input type="checkbox" data-code="DZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="DZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="andorra principality of andorra ad and">
+      <div class="flag">
+        <img
+          src="public/flags/ad.svg"
+          alt="Flag of Andorra"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Andorra</div>
+      <div class="code">AD · AND</div>
+      <label class="review">
+        <input type="checkbox" data-code="AD">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AD">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="angola republic of angola ao ago">
+      <div class="flag">
+        <img
+          src="public/flags/ao.svg"
+          alt="Flag of Angola"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Angola</div>
+      <div class="code">AO · AGO</div>
+      <label class="review">
+        <input type="checkbox" data-code="AO">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AO">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="antigua and barbuda antigua and barbuda ag atg">
+      <div class="flag">
+        <img
+          src="public/flags/ag.svg"
+          alt="Flag of Antigua and Barbuda"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Antigua and Barbuda</div>
+      <div class="code">AG · ATG</div>
+      <label class="review">
+        <input type="checkbox" data-code="AG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="argentina argentine republic ar arg">
+      <div class="flag">
+        <img
+          src="public/flags/ar.svg"
+          alt="Flag of Argentina"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Argentina</div>
+      <div class="code">AR · ARG</div>
+      <label class="review">
+        <input type="checkbox" data-code="AR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="armenia republic of armenia am arm">
+      <div class="flag">
+        <img
+          src="public/flags/am.svg"
+          alt="Flag of Armenia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Armenia</div>
+      <div class="code">AM · ARM</div>
+      <label class="review">
+        <input type="checkbox" data-code="AM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="australia commonwealth of australia au aus">
+      <div class="flag">
+        <img
+          src="public/flags/au.svg"
+          alt="Flag of Australia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Australia</div>
+      <div class="code">AU · AUS</div>
+      <label class="review">
+        <input type="checkbox" data-code="AU">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AU">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="austria republic of austria at aut">
+      <div class="flag">
+        <img
+          src="public/flags/at.svg"
+          alt="Flag of Austria"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Austria</div>
+      <div class="code">AT · AUT</div>
+      <label class="review">
+        <input type="checkbox" data-code="AT">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AT">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="azerbaijan republic of azerbaijan az aze">
+      <div class="flag">
+        <img
+          src="public/flags/az.svg"
+          alt="Flag of Azerbaijan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Azerbaijan</div>
+      <div class="code">AZ · AZE</div>
+      <label class="review">
+        <input type="checkbox" data-code="AZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="bahamas commonwealth of the bahamas bs bhs">
+      <div class="flag">
+        <img
+          src="public/flags/bs.svg"
+          alt="Flag of Bahamas"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Bahamas</div>
+      <div class="code">BS · BHS</div>
+      <label class="review">
+        <input type="checkbox" data-code="BS">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BS">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="bahrain kingdom of bahrain bh bhr">
+      <div class="flag">
+        <img
+          src="public/flags/bh.svg"
+          alt="Flag of Bahrain"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Bahrain</div>
+      <div class="code">BH · BHR</div>
+      <label class="review">
+        <input type="checkbox" data-code="BH">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BH">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="bangladesh people&#39;s republic of bangladesh bd bgd">
+      <div class="flag">
+        <img
+          src="public/flags/bd.svg"
+          alt="Flag of Bangladesh"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Bangladesh</div>
+      <div class="code">BD · BGD</div>
+      <label class="review">
+        <input type="checkbox" data-code="BD">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BD">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="barbados barbados bb brb">
+      <div class="flag">
+        <img
+          src="public/flags/bb.svg"
+          alt="Flag of Barbados"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Barbados</div>
+      <div class="code">BB · BRB</div>
+      <label class="review">
+        <input type="checkbox" data-code="BB">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BB">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="belarus republic of belarus by blr">
+      <div class="flag">
+        <img
+          src="public/flags/by.svg"
+          alt="Flag of Belarus"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Belarus</div>
+      <div class="code">BY · BLR</div>
+      <label class="review">
+        <input type="checkbox" data-code="BY">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BY">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="belgium kingdom of belgium be bel">
+      <div class="flag">
+        <img
+          src="public/flags/be.svg"
+          alt="Flag of Belgium"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Belgium</div>
+      <div class="code">BE · BEL</div>
+      <label class="review">
+        <input type="checkbox" data-code="BE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="belize belize bz blz">
+      <div class="flag">
+        <img
+          src="public/flags/bz.svg"
+          alt="Flag of Belize"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Belize</div>
+      <div class="code">BZ · BLZ</div>
+      <label class="review">
+        <input type="checkbox" data-code="BZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="benin republic of benin bj ben">
+      <div class="flag">
+        <img
+          src="public/flags/bj.svg"
+          alt="Flag of Benin"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Benin</div>
+      <div class="code">BJ · BEN</div>
+      <label class="review">
+        <input type="checkbox" data-code="BJ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BJ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="bhutan kingdom of bhutan bt btn">
+      <div class="flag">
+        <img
+          src="public/flags/bt.svg"
+          alt="Flag of Bhutan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Bhutan</div>
+      <div class="code">BT · BTN</div>
+      <label class="review">
+        <input type="checkbox" data-code="BT">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BT">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="bolivia plurinational state of bolivia bo bol">
+      <div class="flag">
+        <img
+          src="public/flags/bo.svg"
+          alt="Flag of Bolivia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Bolivia</div>
+      <div class="code">BO · BOL</div>
+      <label class="review">
+        <input type="checkbox" data-code="BO">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BO">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="bosnia and herzegovina bosnia and herzegovina ba bih">
+      <div class="flag">
+        <img
+          src="public/flags/ba.svg"
+          alt="Flag of Bosnia and Herzegovina"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Bosnia and Herzegovina</div>
+      <div class="code">BA · BIH</div>
+      <label class="review">
+        <input type="checkbox" data-code="BA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="botswana republic of botswana bw bwa">
+      <div class="flag">
+        <img
+          src="public/flags/bw.svg"
+          alt="Flag of Botswana"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Botswana</div>
+      <div class="code">BW · BWA</div>
+      <label class="review">
+        <input type="checkbox" data-code="BW">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BW">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="brazil federative republic of brazil br bra">
+      <div class="flag">
+        <img
+          src="public/flags/br.svg"
+          alt="Flag of Brazil"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Brazil</div>
+      <div class="code">BR · BRA</div>
+      <label class="review">
+        <input type="checkbox" data-code="BR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="brunei nation of brunei, abode of peace bn brn">
+      <div class="flag">
+        <img
+          src="public/flags/bn.svg"
+          alt="Flag of Brunei"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Brunei</div>
+      <div class="code">BN · BRN</div>
+      <label class="review">
+        <input type="checkbox" data-code="BN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="bulgaria republic of bulgaria bg bgr">
+      <div class="flag">
+        <img
+          src="public/flags/bg.svg"
+          alt="Flag of Bulgaria"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Bulgaria</div>
+      <div class="code">BG · BGR</div>
+      <label class="review">
+        <input type="checkbox" data-code="BG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="burkina faso burkina faso bf bfa">
+      <div class="flag">
+        <img
+          src="public/flags/bf.svg"
+          alt="Flag of Burkina Faso"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Burkina Faso</div>
+      <div class="code">BF · BFA</div>
+      <label class="review">
+        <input type="checkbox" data-code="BF">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BF">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="burundi republic of burundi bi bdi">
+      <div class="flag">
+        <img
+          src="public/flags/bi.svg"
+          alt="Flag of Burundi"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Burundi</div>
+      <div class="code">BI · BDI</div>
+      <label class="review">
+        <input type="checkbox" data-code="BI">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="BI">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="cambodia kingdom of cambodia kh khm">
+      <div class="flag">
+        <img
+          src="public/flags/kh.svg"
+          alt="Flag of Cambodia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Cambodia</div>
+      <div class="code">KH · KHM</div>
+      <label class="review">
+        <input type="checkbox" data-code="KH">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KH">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="cameroon republic of cameroon cm cmr">
+      <div class="flag">
+        <img
+          src="public/flags/cm.svg"
+          alt="Flag of Cameroon"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Cameroon</div>
+      <div class="code">CM · CMR</div>
+      <label class="review">
+        <input type="checkbox" data-code="CM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="canada canada ca can">
+      <div class="flag">
+        <img
+          src="public/flags/ca.svg"
+          alt="Flag of Canada"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Canada</div>
+      <div class="code">CA · CAN</div>
+      <label class="review">
+        <input type="checkbox" data-code="CA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="cape verde republic of cabo verde cv cpv">
+      <div class="flag">
+        <img
+          src="public/flags/cv.svg"
+          alt="Flag of Cape Verde"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Cape Verde</div>
+      <div class="code">CV · CPV</div>
+      <label class="review">
+        <input type="checkbox" data-code="CV">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CV">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="central african republic central african republic cf caf">
+      <div class="flag">
+        <img
+          src="public/flags/cf.svg"
+          alt="Flag of Central African Republic"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Central African Republic</div>
+      <div class="code">CF · CAF</div>
+      <label class="review">
+        <input type="checkbox" data-code="CF">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CF">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="chad republic of chad td tcd">
+      <div class="flag">
+        <img
+          src="public/flags/td.svg"
+          alt="Flag of Chad"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Chad</div>
+      <div class="code">TD · TCD</div>
+      <label class="review">
+        <input type="checkbox" data-code="TD">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TD">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="chile republic of chile cl chl">
+      <div class="flag">
+        <img
+          src="public/flags/cl.svg"
+          alt="Flag of Chile"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Chile</div>
+      <div class="code">CL · CHL</div>
+      <label class="review">
+        <input type="checkbox" data-code="CL">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CL">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="china people&#39;s republic of china cn chn">
+      <div class="flag">
+        <img
+          src="public/flags/cn.svg"
+          alt="Flag of China"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">China</div>
+      <div class="code">CN · CHN</div>
+      <label class="review">
+        <input type="checkbox" data-code="CN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="colombia republic of colombia co col">
+      <div class="flag">
+        <img
+          src="public/flags/co.svg"
+          alt="Flag of Colombia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Colombia</div>
+      <div class="code">CO · COL</div>
+      <label class="review">
+        <input type="checkbox" data-code="CO">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CO">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="comoros union of the comoros km com">
+      <div class="flag">
+        <img
+          src="public/flags/km.svg"
+          alt="Flag of Comoros"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Comoros</div>
+      <div class="code">KM · COM</div>
+      <label class="review">
+        <input type="checkbox" data-code="KM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="congo republic of the congo cg cog">
+      <div class="flag">
+        <img
+          src="public/flags/cg.svg"
+          alt="Flag of Congo"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Congo</div>
+      <div class="code">CG · COG</div>
+      <label class="review">
+        <input type="checkbox" data-code="CG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="costa rica republic of costa rica cr cri">
+      <div class="flag">
+        <img
+          src="public/flags/cr.svg"
+          alt="Flag of Costa Rica"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Costa Rica</div>
+      <div class="code">CR · CRI</div>
+      <label class="review">
+        <input type="checkbox" data-code="CR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="croatia republic of croatia hr hrv">
+      <div class="flag">
+        <img
+          src="public/flags/hr.svg"
+          alt="Flag of Croatia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Croatia</div>
+      <div class="code">HR · HRV</div>
+      <label class="review">
+        <input type="checkbox" data-code="HR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="HR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="cuba republic of cuba cu cub">
+      <div class="flag">
+        <img
+          src="public/flags/cu.svg"
+          alt="Flag of Cuba"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Cuba</div>
+      <div class="code">CU · CUB</div>
+      <label class="review">
+        <input type="checkbox" data-code="CU">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CU">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="cyprus republic of cyprus cy cyp">
+      <div class="flag">
+        <img
+          src="public/flags/cy.svg"
+          alt="Flag of Cyprus"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Cyprus</div>
+      <div class="code">CY · CYP</div>
+      <label class="review">
+        <input type="checkbox" data-code="CY">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CY">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="czechia czech republic cz cze">
+      <div class="flag">
+        <img
+          src="public/flags/cz.svg"
+          alt="Flag of Czechia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Czechia</div>
+      <div class="code">CZ · CZE</div>
+      <label class="review">
+        <input type="checkbox" data-code="CZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="denmark kingdom of denmark dk dnk">
+      <div class="flag">
+        <img
+          src="public/flags/dk.svg"
+          alt="Flag of Denmark"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Denmark</div>
+      <div class="code">DK · DNK</div>
+      <label class="review">
+        <input type="checkbox" data-code="DK">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="DK">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="djibouti republic of djibouti dj dji">
+      <div class="flag">
+        <img
+          src="public/flags/dj.svg"
+          alt="Flag of Djibouti"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Djibouti</div>
+      <div class="code">DJ · DJI</div>
+      <label class="review">
+        <input type="checkbox" data-code="DJ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="DJ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="dominica commonwealth of dominica dm dma">
+      <div class="flag">
+        <img
+          src="public/flags/dm.svg"
+          alt="Flag of Dominica"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Dominica</div>
+      <div class="code">DM · DMA</div>
+      <label class="review">
+        <input type="checkbox" data-code="DM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="DM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="dominican republic dominican republic do dom">
+      <div class="flag">
+        <img
+          src="public/flags/do.svg"
+          alt="Flag of Dominican Republic"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Dominican Republic</div>
+      <div class="code">DO · DOM</div>
+      <label class="review">
+        <input type="checkbox" data-code="DO">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="DO">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="dr congo democratic republic of the congo cd cod">
+      <div class="flag">
+        <img
+          src="public/flags/cd.svg"
+          alt="Flag of DR Congo"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">DR Congo</div>
+      <div class="code">CD · COD</div>
+      <label class="review">
+        <input type="checkbox" data-code="CD">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CD">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="ecuador republic of ecuador ec ecu">
+      <div class="flag">
+        <img
+          src="public/flags/ec.svg"
+          alt="Flag of Ecuador"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Ecuador</div>
+      <div class="code">EC · ECU</div>
+      <label class="review">
+        <input type="checkbox" data-code="EC">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="EC">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="egypt arab republic of egypt eg egy">
+      <div class="flag">
+        <img
+          src="public/flags/eg.svg"
+          alt="Flag of Egypt"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Egypt</div>
+      <div class="code">EG · EGY</div>
+      <label class="review">
+        <input type="checkbox" data-code="EG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="EG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="el salvador republic of el salvador sv slv">
+      <div class="flag">
+        <img
+          src="public/flags/sv.svg"
+          alt="Flag of El Salvador"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">El Salvador</div>
+      <div class="code">SV · SLV</div>
+      <label class="review">
+        <input type="checkbox" data-code="SV">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SV">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="equatorial guinea republic of equatorial guinea gq gnq">
+      <div class="flag">
+        <img
+          src="public/flags/gq.svg"
+          alt="Flag of Equatorial Guinea"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Equatorial Guinea</div>
+      <div class="code">GQ · GNQ</div>
+      <label class="review">
+        <input type="checkbox" data-code="GQ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GQ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="eritrea state of eritrea er eri">
+      <div class="flag">
+        <img
+          src="public/flags/er.svg"
+          alt="Flag of Eritrea"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Eritrea</div>
+      <div class="code">ER · ERI</div>
+      <label class="review">
+        <input type="checkbox" data-code="ER">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ER">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="estonia republic of estonia ee est">
+      <div class="flag">
+        <img
+          src="public/flags/ee.svg"
+          alt="Flag of Estonia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Estonia</div>
+      <div class="code">EE · EST</div>
+      <label class="review">
+        <input type="checkbox" data-code="EE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="EE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="eswatini kingdom of eswatini sz swz">
+      <div class="flag">
+        <img
+          src="public/flags/sz.svg"
+          alt="Flag of Eswatini"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Eswatini</div>
+      <div class="code">SZ · SWZ</div>
+      <label class="review">
+        <input type="checkbox" data-code="SZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="ethiopia federal democratic republic of ethiopia et eth">
+      <div class="flag">
+        <img
+          src="public/flags/et.svg"
+          alt="Flag of Ethiopia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Ethiopia</div>
+      <div class="code">ET · ETH</div>
+      <label class="review">
+        <input type="checkbox" data-code="ET">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ET">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="fiji republic of fiji fj fji">
+      <div class="flag">
+        <img
+          src="public/flags/fj.svg"
+          alt="Flag of Fiji"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Fiji</div>
+      <div class="code">FJ · FJI</div>
+      <label class="review">
+        <input type="checkbox" data-code="FJ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="FJ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="finland republic of finland fi fin">
+      <div class="flag">
+        <img
+          src="public/flags/fi.svg"
+          alt="Flag of Finland"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Finland</div>
+      <div class="code">FI · FIN</div>
+      <label class="review">
+        <input type="checkbox" data-code="FI">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="FI">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="france french republic fr fra">
+      <div class="flag">
+        <img
+          src="public/flags/fr.svg"
+          alt="Flag of France"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">France</div>
+      <div class="code">FR · FRA</div>
+      <label class="review">
+        <input type="checkbox" data-code="FR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="FR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="gabon gabonese republic ga gab">
+      <div class="flag">
+        <img
+          src="public/flags/ga.svg"
+          alt="Flag of Gabon"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Gabon</div>
+      <div class="code">GA · GAB</div>
+      <label class="review">
+        <input type="checkbox" data-code="GA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="gambia republic of the gambia gm gmb">
+      <div class="flag">
+        <img
+          src="public/flags/gm.svg"
+          alt="Flag of Gambia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Gambia</div>
+      <div class="code">GM · GMB</div>
+      <label class="review">
+        <input type="checkbox" data-code="GM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="georgia georgia ge geo">
+      <div class="flag">
+        <img
+          src="public/flags/ge.svg"
+          alt="Flag of Georgia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Georgia</div>
+      <div class="code">GE · GEO</div>
+      <label class="review">
+        <input type="checkbox" data-code="GE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="germany federal republic of germany de deu">
+      <div class="flag">
+        <img
+          src="public/flags/de.svg"
+          alt="Flag of Germany"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Germany</div>
+      <div class="code">DE · DEU</div>
+      <label class="review">
+        <input type="checkbox" data-code="DE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="DE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="ghana republic of ghana gh gha">
+      <div class="flag">
+        <img
+          src="public/flags/gh.svg"
+          alt="Flag of Ghana"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Ghana</div>
+      <div class="code">GH · GHA</div>
+      <label class="review">
+        <input type="checkbox" data-code="GH">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GH">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="greece hellenic republic gr grc">
+      <div class="flag">
+        <img
+          src="public/flags/gr.svg"
+          alt="Flag of Greece"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Greece</div>
+      <div class="code">GR · GRC</div>
+      <label class="review">
+        <input type="checkbox" data-code="GR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="grenada grenada gd grd">
+      <div class="flag">
+        <img
+          src="public/flags/gd.svg"
+          alt="Flag of Grenada"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Grenada</div>
+      <div class="code">GD · GRD</div>
+      <label class="review">
+        <input type="checkbox" data-code="GD">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GD">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="guatemala republic of guatemala gt gtm">
+      <div class="flag">
+        <img
+          src="public/flags/gt.svg"
+          alt="Flag of Guatemala"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Guatemala</div>
+      <div class="code">GT · GTM</div>
+      <label class="review">
+        <input type="checkbox" data-code="GT">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GT">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="guinea republic of guinea gn gin">
+      <div class="flag">
+        <img
+          src="public/flags/gn.svg"
+          alt="Flag of Guinea"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Guinea</div>
+      <div class="code">GN · GIN</div>
+      <label class="review">
+        <input type="checkbox" data-code="GN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="guinea-bissau republic of guinea-bissau gw gnb">
+      <div class="flag">
+        <img
+          src="public/flags/gw.svg"
+          alt="Flag of Guinea-Bissau"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Guinea-Bissau</div>
+      <div class="code">GW · GNB</div>
+      <label class="review">
+        <input type="checkbox" data-code="GW">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GW">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="guyana co-operative republic of guyana gy guy">
+      <div class="flag">
+        <img
+          src="public/flags/gy.svg"
+          alt="Flag of Guyana"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Guyana</div>
+      <div class="code">GY · GUY</div>
+      <label class="review">
+        <input type="checkbox" data-code="GY">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GY">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="haiti republic of haiti ht hti">
+      <div class="flag">
+        <img
+          src="public/flags/ht.svg"
+          alt="Flag of Haiti"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Haiti</div>
+      <div class="code">HT · HTI</div>
+      <label class="review">
+        <input type="checkbox" data-code="HT">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="HT">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="honduras republic of honduras hn hnd">
+      <div class="flag">
+        <img
+          src="public/flags/hn.svg"
+          alt="Flag of Honduras"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Honduras</div>
+      <div class="code">HN · HND</div>
+      <label class="review">
+        <input type="checkbox" data-code="HN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="HN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="hungary hungary hu hun">
+      <div class="flag">
+        <img
+          src="public/flags/hu.svg"
+          alt="Flag of Hungary"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Hungary</div>
+      <div class="code">HU · HUN</div>
+      <label class="review">
+        <input type="checkbox" data-code="HU">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="HU">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="iceland iceland is isl">
+      <div class="flag">
+        <img
+          src="public/flags/is.svg"
+          alt="Flag of Iceland"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Iceland</div>
+      <div class="code">IS · ISL</div>
+      <label class="review">
+        <input type="checkbox" data-code="IS">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="IS">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="india republic of india in ind">
+      <div class="flag">
+        <img
+          src="public/flags/in.svg"
+          alt="Flag of India"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">India</div>
+      <div class="code">IN · IND</div>
+      <label class="review">
+        <input type="checkbox" data-code="IN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="IN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="indonesia republic of indonesia id idn">
+      <div class="flag">
+        <img
+          src="public/flags/id.svg"
+          alt="Flag of Indonesia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Indonesia</div>
+      <div class="code">ID · IDN</div>
+      <label class="review">
+        <input type="checkbox" data-code="ID">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ID">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="iran islamic republic of iran ir irn">
+      <div class="flag">
+        <img
+          src="public/flags/ir.svg"
+          alt="Flag of Iran"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Iran</div>
+      <div class="code">IR · IRN</div>
+      <label class="review">
+        <input type="checkbox" data-code="IR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="IR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="iraq republic of iraq iq irq">
+      <div class="flag">
+        <img
+          src="public/flags/iq.svg"
+          alt="Flag of Iraq"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Iraq</div>
+      <div class="code">IQ · IRQ</div>
+      <label class="review">
+        <input type="checkbox" data-code="IQ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="IQ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="ireland republic of ireland ie irl">
+      <div class="flag">
+        <img
+          src="public/flags/ie.svg"
+          alt="Flag of Ireland"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Ireland</div>
+      <div class="code">IE · IRL</div>
+      <label class="review">
+        <input type="checkbox" data-code="IE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="IE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="israel state of israel il isr">
+      <div class="flag">
+        <img
+          src="public/flags/il.svg"
+          alt="Flag of Israel"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Israel</div>
+      <div class="code">IL · ISR</div>
+      <label class="review">
+        <input type="checkbox" data-code="IL">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="IL">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="italy italian republic it ita">
+      <div class="flag">
+        <img
+          src="public/flags/it.svg"
+          alt="Flag of Italy"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Italy</div>
+      <div class="code">IT · ITA</div>
+      <label class="review">
+        <input type="checkbox" data-code="IT">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="IT">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="ivory coast republic of côte d&#39;ivoire ci civ">
+      <div class="flag">
+        <img
+          src="public/flags/ci.svg"
+          alt="Flag of Ivory Coast"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Ivory Coast</div>
+      <div class="code">CI · CIV</div>
+      <label class="review">
+        <input type="checkbox" data-code="CI">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CI">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="jamaica jamaica jm jam">
+      <div class="flag">
+        <img
+          src="public/flags/jm.svg"
+          alt="Flag of Jamaica"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Jamaica</div>
+      <div class="code">JM · JAM</div>
+      <label class="review">
+        <input type="checkbox" data-code="JM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="JM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="japan japan jp jpn">
+      <div class="flag">
+        <img
+          src="public/flags/jp.svg"
+          alt="Flag of Japan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Japan</div>
+      <div class="code">JP · JPN</div>
+      <label class="review">
+        <input type="checkbox" data-code="JP">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="JP">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="jordan hashemite kingdom of jordan jo jor">
+      <div class="flag">
+        <img
+          src="public/flags/jo.svg"
+          alt="Flag of Jordan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Jordan</div>
+      <div class="code">JO · JOR</div>
+      <label class="review">
+        <input type="checkbox" data-code="JO">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="JO">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="kazakhstan republic of kazakhstan kz kaz">
+      <div class="flag">
+        <img
+          src="public/flags/kz.svg"
+          alt="Flag of Kazakhstan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Kazakhstan</div>
+      <div class="code">KZ · KAZ</div>
+      <label class="review">
+        <input type="checkbox" data-code="KZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="kenya republic of kenya ke ken">
+      <div class="flag">
+        <img
+          src="public/flags/ke.svg"
+          alt="Flag of Kenya"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Kenya</div>
+      <div class="code">KE · KEN</div>
+      <label class="review">
+        <input type="checkbox" data-code="KE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="kiribati independent and sovereign republic of kiribati ki kir">
+      <div class="flag">
+        <img
+          src="public/flags/ki.svg"
+          alt="Flag of Kiribati"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Kiribati</div>
+      <div class="code">KI · KIR</div>
+      <label class="review">
+        <input type="checkbox" data-code="KI">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KI">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="kuwait state of kuwait kw kwt">
+      <div class="flag">
+        <img
+          src="public/flags/kw.svg"
+          alt="Flag of Kuwait"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Kuwait</div>
+      <div class="code">KW · KWT</div>
+      <label class="review">
+        <input type="checkbox" data-code="KW">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KW">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="kyrgyzstan kyrgyz republic kg kgz">
+      <div class="flag">
+        <img
+          src="public/flags/kg.svg"
+          alt="Flag of Kyrgyzstan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Kyrgyzstan</div>
+      <div class="code">KG · KGZ</div>
+      <label class="review">
+        <input type="checkbox" data-code="KG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="laos lao people&#39;s democratic republic la lao">
+      <div class="flag">
+        <img
+          src="public/flags/la.svg"
+          alt="Flag of Laos"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Laos</div>
+      <div class="code">LA · LAO</div>
+      <label class="review">
+        <input type="checkbox" data-code="LA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="latvia republic of latvia lv lva">
+      <div class="flag">
+        <img
+          src="public/flags/lv.svg"
+          alt="Flag of Latvia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Latvia</div>
+      <div class="code">LV · LVA</div>
+      <label class="review">
+        <input type="checkbox" data-code="LV">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LV">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="lebanon lebanese republic lb lbn">
+      <div class="flag">
+        <img
+          src="public/flags/lb.svg"
+          alt="Flag of Lebanon"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Lebanon</div>
+      <div class="code">LB · LBN</div>
+      <label class="review">
+        <input type="checkbox" data-code="LB">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LB">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="lesotho kingdom of lesotho ls lso">
+      <div class="flag">
+        <img
+          src="public/flags/ls.svg"
+          alt="Flag of Lesotho"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Lesotho</div>
+      <div class="code">LS · LSO</div>
+      <label class="review">
+        <input type="checkbox" data-code="LS">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LS">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="liberia republic of liberia lr lbr">
+      <div class="flag">
+        <img
+          src="public/flags/lr.svg"
+          alt="Flag of Liberia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Liberia</div>
+      <div class="code">LR · LBR</div>
+      <label class="review">
+        <input type="checkbox" data-code="LR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="libya state of libya ly lby">
+      <div class="flag">
+        <img
+          src="public/flags/ly.svg"
+          alt="Flag of Libya"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Libya</div>
+      <div class="code">LY · LBY</div>
+      <label class="review">
+        <input type="checkbox" data-code="LY">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LY">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="liechtenstein principality of liechtenstein li lie">
+      <div class="flag">
+        <img
+          src="public/flags/li.svg"
+          alt="Flag of Liechtenstein"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Liechtenstein</div>
+      <div class="code">LI · LIE</div>
+      <label class="review">
+        <input type="checkbox" data-code="LI">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LI">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="lithuania republic of lithuania lt ltu">
+      <div class="flag">
+        <img
+          src="public/flags/lt.svg"
+          alt="Flag of Lithuania"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Lithuania</div>
+      <div class="code">LT · LTU</div>
+      <label class="review">
+        <input type="checkbox" data-code="LT">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LT">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="luxembourg grand duchy of luxembourg lu lux">
+      <div class="flag">
+        <img
+          src="public/flags/lu.svg"
+          alt="Flag of Luxembourg"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Luxembourg</div>
+      <div class="code">LU · LUX</div>
+      <label class="review">
+        <input type="checkbox" data-code="LU">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LU">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="madagascar republic of madagascar mg mdg">
+      <div class="flag">
+        <img
+          src="public/flags/mg.svg"
+          alt="Flag of Madagascar"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Madagascar</div>
+      <div class="code">MG · MDG</div>
+      <label class="review">
+        <input type="checkbox" data-code="MG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="malawi republic of malawi mw mwi">
+      <div class="flag">
+        <img
+          src="public/flags/mw.svg"
+          alt="Flag of Malawi"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Malawi</div>
+      <div class="code">MW · MWI</div>
+      <label class="review">
+        <input type="checkbox" data-code="MW">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MW">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="malaysia malaysia my mys">
+      <div class="flag">
+        <img
+          src="public/flags/my.svg"
+          alt="Flag of Malaysia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Malaysia</div>
+      <div class="code">MY · MYS</div>
+      <label class="review">
+        <input type="checkbox" data-code="MY">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MY">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="maldives republic of the maldives mv mdv">
+      <div class="flag">
+        <img
+          src="public/flags/mv.svg"
+          alt="Flag of Maldives"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Maldives</div>
+      <div class="code">MV · MDV</div>
+      <label class="review">
+        <input type="checkbox" data-code="MV">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MV">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="mali republic of mali ml mli">
+      <div class="flag">
+        <img
+          src="public/flags/ml.svg"
+          alt="Flag of Mali"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Mali</div>
+      <div class="code">ML · MLI</div>
+      <label class="review">
+        <input type="checkbox" data-code="ML">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ML">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="malta republic of malta mt mlt">
+      <div class="flag">
+        <img
+          src="public/flags/mt.svg"
+          alt="Flag of Malta"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Malta</div>
+      <div class="code">MT · MLT</div>
+      <label class="review">
+        <input type="checkbox" data-code="MT">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MT">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="marshall islands republic of the marshall islands mh mhl">
+      <div class="flag">
+        <img
+          src="public/flags/mh.svg"
+          alt="Flag of Marshall Islands"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Marshall Islands</div>
+      <div class="code">MH · MHL</div>
+      <label class="review">
+        <input type="checkbox" data-code="MH">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MH">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="mauritania islamic republic of mauritania mr mrt">
+      <div class="flag">
+        <img
+          src="public/flags/mr.svg"
+          alt="Flag of Mauritania"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Mauritania</div>
+      <div class="code">MR · MRT</div>
+      <label class="review">
+        <input type="checkbox" data-code="MR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="mauritius republic of mauritius mu mus">
+      <div class="flag">
+        <img
+          src="public/flags/mu.svg"
+          alt="Flag of Mauritius"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Mauritius</div>
+      <div class="code">MU · MUS</div>
+      <label class="review">
+        <input type="checkbox" data-code="MU">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MU">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="mexico united mexican states mx mex">
+      <div class="flag">
+        <img
+          src="public/flags/mx.svg"
+          alt="Flag of Mexico"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Mexico</div>
+      <div class="code">MX · MEX</div>
+      <label class="review">
+        <input type="checkbox" data-code="MX">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MX">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="micronesia federated states of micronesia fm fsm">
+      <div class="flag">
+        <img
+          src="public/flags/fm.svg"
+          alt="Flag of Micronesia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Micronesia</div>
+      <div class="code">FM · FSM</div>
+      <label class="review">
+        <input type="checkbox" data-code="FM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="FM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="moldova republic of moldova md mda">
+      <div class="flag">
+        <img
+          src="public/flags/md.svg"
+          alt="Flag of Moldova"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Moldova</div>
+      <div class="code">MD · MDA</div>
+      <label class="review">
+        <input type="checkbox" data-code="MD">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MD">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="monaco principality of monaco mc mco">
+      <div class="flag">
+        <img
+          src="public/flags/mc.svg"
+          alt="Flag of Monaco"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Monaco</div>
+      <div class="code">MC · MCO</div>
+      <label class="review">
+        <input type="checkbox" data-code="MC">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MC">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="mongolia mongolia mn mng">
+      <div class="flag">
+        <img
+          src="public/flags/mn.svg"
+          alt="Flag of Mongolia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Mongolia</div>
+      <div class="code">MN · MNG</div>
+      <label class="review">
+        <input type="checkbox" data-code="MN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="montenegro montenegro me mne">
+      <div class="flag">
+        <img
+          src="public/flags/me.svg"
+          alt="Flag of Montenegro"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Montenegro</div>
+      <div class="code">ME · MNE</div>
+      <label class="review">
+        <input type="checkbox" data-code="ME">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ME">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="morocco kingdom of morocco ma mar">
+      <div class="flag">
+        <img
+          src="public/flags/ma.svg"
+          alt="Flag of Morocco"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Morocco</div>
+      <div class="code">MA · MAR</div>
+      <label class="review">
+        <input type="checkbox" data-code="MA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="mozambique republic of mozambique mz moz">
+      <div class="flag">
+        <img
+          src="public/flags/mz.svg"
+          alt="Flag of Mozambique"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Mozambique</div>
+      <div class="code">MZ · MOZ</div>
+      <label class="review">
+        <input type="checkbox" data-code="MZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="myanmar republic of the union of myanmar mm mmr">
+      <div class="flag">
+        <img
+          src="public/flags/mm.svg"
+          alt="Flag of Myanmar"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Myanmar</div>
+      <div class="code">MM · MMR</div>
+      <label class="review">
+        <input type="checkbox" data-code="MM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="namibia republic of namibia na nam">
+      <div class="flag">
+        <img
+          src="public/flags/na.svg"
+          alt="Flag of Namibia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Namibia</div>
+      <div class="code">NA · NAM</div>
+      <label class="review">
+        <input type="checkbox" data-code="NA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="NA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="nauru republic of nauru nr nru">
+      <div class="flag">
+        <img
+          src="public/flags/nr.svg"
+          alt="Flag of Nauru"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Nauru</div>
+      <div class="code">NR · NRU</div>
+      <label class="review">
+        <input type="checkbox" data-code="NR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="NR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="nepal federal democratic republic of nepal np npl">
+      <div class="flag">
+        <img
+          src="public/flags/np.svg"
+          alt="Flag of Nepal"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Nepal</div>
+      <div class="code">NP · NPL</div>
+      <label class="review">
+        <input type="checkbox" data-code="NP">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="NP">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="netherlands kingdom of the netherlands nl nld">
+      <div class="flag">
+        <img
+          src="public/flags/nl.svg"
+          alt="Flag of Netherlands"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Netherlands</div>
+      <div class="code">NL · NLD</div>
+      <label class="review">
+        <input type="checkbox" data-code="NL">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="NL">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="new zealand new zealand nz nzl">
+      <div class="flag">
+        <img
+          src="public/flags/nz.svg"
+          alt="Flag of New Zealand"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">New Zealand</div>
+      <div class="code">NZ · NZL</div>
+      <label class="review">
+        <input type="checkbox" data-code="NZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="NZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="nicaragua republic of nicaragua ni nic">
+      <div class="flag">
+        <img
+          src="public/flags/ni.svg"
+          alt="Flag of Nicaragua"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Nicaragua</div>
+      <div class="code">NI · NIC</div>
+      <label class="review">
+        <input type="checkbox" data-code="NI">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="NI">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="niger republic of niger ne ner">
+      <div class="flag">
+        <img
+          src="public/flags/ne.svg"
+          alt="Flag of Niger"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Niger</div>
+      <div class="code">NE · NER</div>
+      <label class="review">
+        <input type="checkbox" data-code="NE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="NE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="nigeria federal republic of nigeria ng nga">
+      <div class="flag">
+        <img
+          src="public/flags/ng.svg"
+          alt="Flag of Nigeria"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Nigeria</div>
+      <div class="code">NG · NGA</div>
+      <label class="review">
+        <input type="checkbox" data-code="NG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="NG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="north korea democratic people&#39;s republic of korea kp prk">
+      <div class="flag">
+        <img
+          src="public/flags/kp.svg"
+          alt="Flag of North Korea"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">North Korea</div>
+      <div class="code">KP · PRK</div>
+      <label class="review">
+        <input type="checkbox" data-code="KP">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KP">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="north macedonia republic of north macedonia mk mkd">
+      <div class="flag">
+        <img
+          src="public/flags/mk.svg"
+          alt="Flag of North Macedonia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">North Macedonia</div>
+      <div class="code">MK · MKD</div>
+      <label class="review">
+        <input type="checkbox" data-code="MK">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="MK">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="norway kingdom of norway no nor">
+      <div class="flag">
+        <img
+          src="public/flags/no.svg"
+          alt="Flag of Norway"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Norway</div>
+      <div class="code">NO · NOR</div>
+      <label class="review">
+        <input type="checkbox" data-code="NO">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="NO">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="oman sultanate of oman om omn">
+      <div class="flag">
+        <img
+          src="public/flags/om.svg"
+          alt="Flag of Oman"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Oman</div>
+      <div class="code">OM · OMN</div>
+      <label class="review">
+        <input type="checkbox" data-code="OM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="OM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="pakistan islamic republic of pakistan pk pak">
+      <div class="flag">
+        <img
+          src="public/flags/pk.svg"
+          alt="Flag of Pakistan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Pakistan</div>
+      <div class="code">PK · PAK</div>
+      <label class="review">
+        <input type="checkbox" data-code="PK">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PK">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="palau republic of palau pw plw">
+      <div class="flag">
+        <img
+          src="public/flags/pw.svg"
+          alt="Flag of Palau"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Palau</div>
+      <div class="code">PW · PLW</div>
+      <label class="review">
+        <input type="checkbox" data-code="PW">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PW">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="palestine state of palestine ps pse">
+      <div class="flag">
+        <img
+          src="public/flags/ps.svg"
+          alt="Flag of Palestine"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Palestine</div>
+      <div class="code">PS · PSE</div>
+      <label class="review">
+        <input type="checkbox" data-code="PS">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PS">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="panama republic of panama pa pan">
+      <div class="flag">
+        <img
+          src="public/flags/pa.svg"
+          alt="Flag of Panama"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Panama</div>
+      <div class="code">PA · PAN</div>
+      <label class="review">
+        <input type="checkbox" data-code="PA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="papua new guinea independent state of papua new guinea pg png">
+      <div class="flag">
+        <img
+          src="public/flags/pg.svg"
+          alt="Flag of Papua New Guinea"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Papua New Guinea</div>
+      <div class="code">PG · PNG</div>
+      <label class="review">
+        <input type="checkbox" data-code="PG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="paraguay republic of paraguay py pry">
+      <div class="flag">
+        <img
+          src="public/flags/py.svg"
+          alt="Flag of Paraguay"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Paraguay</div>
+      <div class="code">PY · PRY</div>
+      <label class="review">
+        <input type="checkbox" data-code="PY">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PY">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="peru republic of peru pe per">
+      <div class="flag">
+        <img
+          src="public/flags/pe.svg"
+          alt="Flag of Peru"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Peru</div>
+      <div class="code">PE · PER</div>
+      <label class="review">
+        <input type="checkbox" data-code="PE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="philippines republic of the philippines ph phl">
+      <div class="flag">
+        <img
+          src="public/flags/ph.svg"
+          alt="Flag of Philippines"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Philippines</div>
+      <div class="code">PH · PHL</div>
+      <label class="review">
+        <input type="checkbox" data-code="PH">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PH">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="poland republic of poland pl pol">
+      <div class="flag">
+        <img
+          src="public/flags/pl.svg"
+          alt="Flag of Poland"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Poland</div>
+      <div class="code">PL · POL</div>
+      <label class="review">
+        <input type="checkbox" data-code="PL">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PL">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="portugal portuguese republic pt prt">
+      <div class="flag">
+        <img
+          src="public/flags/pt.svg"
+          alt="Flag of Portugal"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Portugal</div>
+      <div class="code">PT · PRT</div>
+      <label class="review">
+        <input type="checkbox" data-code="PT">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="PT">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="qatar state of qatar qa qat">
+      <div class="flag">
+        <img
+          src="public/flags/qa.svg"
+          alt="Flag of Qatar"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Qatar</div>
+      <div class="code">QA · QAT</div>
+      <label class="review">
+        <input type="checkbox" data-code="QA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="QA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="romania romania ro rou">
+      <div class="flag">
+        <img
+          src="public/flags/ro.svg"
+          alt="Flag of Romania"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Romania</div>
+      <div class="code">RO · ROU</div>
+      <label class="review">
+        <input type="checkbox" data-code="RO">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="RO">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="russia russian federation ru rus">
+      <div class="flag">
+        <img
+          src="public/flags/ru.svg"
+          alt="Flag of Russia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Russia</div>
+      <div class="code">RU · RUS</div>
+      <label class="review">
+        <input type="checkbox" data-code="RU">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="RU">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="rwanda republic of rwanda rw rwa">
+      <div class="flag">
+        <img
+          src="public/flags/rw.svg"
+          alt="Flag of Rwanda"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Rwanda</div>
+      <div class="code">RW · RWA</div>
+      <label class="review">
+        <input type="checkbox" data-code="RW">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="RW">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="saint kitts and nevis federation of saint christopher and nevis kn kna">
+      <div class="flag">
+        <img
+          src="public/flags/kn.svg"
+          alt="Flag of Saint Kitts and Nevis"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Saint Kitts and Nevis</div>
+      <div class="code">KN · KNA</div>
+      <label class="review">
+        <input type="checkbox" data-code="KN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="saint lucia saint lucia lc lca">
+      <div class="flag">
+        <img
+          src="public/flags/lc.svg"
+          alt="Flag of Saint Lucia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Saint Lucia</div>
+      <div class="code">LC · LCA</div>
+      <label class="review">
+        <input type="checkbox" data-code="LC">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LC">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="saint vincent and the grenadines saint vincent and the grenadines vc vct">
+      <div class="flag">
+        <img
+          src="public/flags/vc.svg"
+          alt="Flag of Saint Vincent and the Grenadines"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Saint Vincent and the Grenadines</div>
+      <div class="code">VC · VCT</div>
+      <label class="review">
+        <input type="checkbox" data-code="VC">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="VC">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="samoa independent state of samoa ws wsm">
+      <div class="flag">
+        <img
+          src="public/flags/ws.svg"
+          alt="Flag of Samoa"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Samoa</div>
+      <div class="code">WS · WSM</div>
+      <label class="review">
+        <input type="checkbox" data-code="WS">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="WS">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="san marino most serene republic of san marino sm smr">
+      <div class="flag">
+        <img
+          src="public/flags/sm.svg"
+          alt="Flag of San Marino"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">San Marino</div>
+      <div class="code">SM · SMR</div>
+      <label class="review">
+        <input type="checkbox" data-code="SM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="são tomé and príncipe democratic republic of são tomé and príncipe st stp">
+      <div class="flag">
+        <img
+          src="public/flags/st.svg"
+          alt="Flag of São Tomé and Príncipe"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">São Tomé and Príncipe</div>
+      <div class="code">ST · STP</div>
+      <label class="review">
+        <input type="checkbox" data-code="ST">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ST">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="saudi arabia kingdom of saudi arabia sa sau">
+      <div class="flag">
+        <img
+          src="public/flags/sa.svg"
+          alt="Flag of Saudi Arabia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Saudi Arabia</div>
+      <div class="code">SA · SAU</div>
+      <label class="review">
+        <input type="checkbox" data-code="SA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="senegal republic of senegal sn sen">
+      <div class="flag">
+        <img
+          src="public/flags/sn.svg"
+          alt="Flag of Senegal"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Senegal</div>
+      <div class="code">SN · SEN</div>
+      <label class="review">
+        <input type="checkbox" data-code="SN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="serbia republic of serbia rs srb">
+      <div class="flag">
+        <img
+          src="public/flags/rs.svg"
+          alt="Flag of Serbia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Serbia</div>
+      <div class="code">RS · SRB</div>
+      <label class="review">
+        <input type="checkbox" data-code="RS">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="RS">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="seychelles republic of seychelles sc syc">
+      <div class="flag">
+        <img
+          src="public/flags/sc.svg"
+          alt="Flag of Seychelles"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Seychelles</div>
+      <div class="code">SC · SYC</div>
+      <label class="review">
+        <input type="checkbox" data-code="SC">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SC">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="sierra leone republic of sierra leone sl sle">
+      <div class="flag">
+        <img
+          src="public/flags/sl.svg"
+          alt="Flag of Sierra Leone"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Sierra Leone</div>
+      <div class="code">SL · SLE</div>
+      <label class="review">
+        <input type="checkbox" data-code="SL">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SL">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="singapore republic of singapore sg sgp">
+      <div class="flag">
+        <img
+          src="public/flags/sg.svg"
+          alt="Flag of Singapore"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Singapore</div>
+      <div class="code">SG · SGP</div>
+      <label class="review">
+        <input type="checkbox" data-code="SG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="slovakia slovak republic sk svk">
+      <div class="flag">
+        <img
+          src="public/flags/sk.svg"
+          alt="Flag of Slovakia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Slovakia</div>
+      <div class="code">SK · SVK</div>
+      <label class="review">
+        <input type="checkbox" data-code="SK">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SK">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="slovenia republic of slovenia si svn">
+      <div class="flag">
+        <img
+          src="public/flags/si.svg"
+          alt="Flag of Slovenia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Slovenia</div>
+      <div class="code">SI · SVN</div>
+      <label class="review">
+        <input type="checkbox" data-code="SI">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SI">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="solomon islands solomon islands sb slb">
+      <div class="flag">
+        <img
+          src="public/flags/sb.svg"
+          alt="Flag of Solomon Islands"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Solomon Islands</div>
+      <div class="code">SB · SLB</div>
+      <label class="review">
+        <input type="checkbox" data-code="SB">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SB">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="somalia federal republic of somalia so som">
+      <div class="flag">
+        <img
+          src="public/flags/so.svg"
+          alt="Flag of Somalia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Somalia</div>
+      <div class="code">SO · SOM</div>
+      <label class="review">
+        <input type="checkbox" data-code="SO">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SO">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="south africa republic of south africa za zaf">
+      <div class="flag">
+        <img
+          src="public/flags/za.svg"
+          alt="Flag of South Africa"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">South Africa</div>
+      <div class="code">ZA · ZAF</div>
+      <label class="review">
+        <input type="checkbox" data-code="ZA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ZA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="south korea republic of korea kr kor">
+      <div class="flag">
+        <img
+          src="public/flags/kr.svg"
+          alt="Flag of South Korea"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">South Korea</div>
+      <div class="code">KR · KOR</div>
+      <label class="review">
+        <input type="checkbox" data-code="KR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="KR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="south sudan republic of south sudan ss ssd">
+      <div class="flag">
+        <img
+          src="public/flags/ss.svg"
+          alt="Flag of South Sudan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">South Sudan</div>
+      <div class="code">SS · SSD</div>
+      <label class="review">
+        <input type="checkbox" data-code="SS">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SS">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="spain kingdom of spain es esp">
+      <div class="flag">
+        <img
+          src="public/flags/es.svg"
+          alt="Flag of Spain"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Spain</div>
+      <div class="code">ES · ESP</div>
+      <label class="review">
+        <input type="checkbox" data-code="ES">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ES">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="sri lanka democratic socialist republic of sri lanka lk lka">
+      <div class="flag">
+        <img
+          src="public/flags/lk.svg"
+          alt="Flag of Sri Lanka"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Sri Lanka</div>
+      <div class="code">LK · LKA</div>
+      <label class="review">
+        <input type="checkbox" data-code="LK">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="LK">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="sudan republic of the sudan sd sdn">
+      <div class="flag">
+        <img
+          src="public/flags/sd.svg"
+          alt="Flag of Sudan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Sudan</div>
+      <div class="code">SD · SDN</div>
+      <label class="review">
+        <input type="checkbox" data-code="SD">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SD">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="suriname republic of suriname sr sur">
+      <div class="flag">
+        <img
+          src="public/flags/sr.svg"
+          alt="Flag of Suriname"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Suriname</div>
+      <div class="code">SR · SUR</div>
+      <label class="review">
+        <input type="checkbox" data-code="SR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="sweden kingdom of sweden se swe">
+      <div class="flag">
+        <img
+          src="public/flags/se.svg"
+          alt="Flag of Sweden"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Sweden</div>
+      <div class="code">SE · SWE</div>
+      <label class="review">
+        <input type="checkbox" data-code="SE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="switzerland swiss confederation ch che">
+      <div class="flag">
+        <img
+          src="public/flags/ch.svg"
+          alt="Flag of Switzerland"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Switzerland</div>
+      <div class="code">CH · CHE</div>
+      <label class="review">
+        <input type="checkbox" data-code="CH">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="CH">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="syria syrian arab republic sy syr">
+      <div class="flag">
+        <img
+          src="public/flags/sy.svg"
+          alt="Flag of Syria"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Syria</div>
+      <div class="code">SY · SYR</div>
+      <label class="review">
+        <input type="checkbox" data-code="SY">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="SY">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="tajikistan republic of tajikistan tj tjk">
+      <div class="flag">
+        <img
+          src="public/flags/tj.svg"
+          alt="Flag of Tajikistan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Tajikistan</div>
+      <div class="code">TJ · TJK</div>
+      <label class="review">
+        <input type="checkbox" data-code="TJ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TJ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="tanzania united republic of tanzania tz tza">
+      <div class="flag">
+        <img
+          src="public/flags/tz.svg"
+          alt="Flag of Tanzania"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Tanzania</div>
+      <div class="code">TZ · TZA</div>
+      <label class="review">
+        <input type="checkbox" data-code="TZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="thailand kingdom of thailand th tha">
+      <div class="flag">
+        <img
+          src="public/flags/th.svg"
+          alt="Flag of Thailand"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Thailand</div>
+      <div class="code">TH · THA</div>
+      <label class="review">
+        <input type="checkbox" data-code="TH">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TH">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="timor-leste democratic republic of timor-leste tl tls">
+      <div class="flag">
+        <img
+          src="public/flags/tl.svg"
+          alt="Flag of Timor-Leste"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Timor-Leste</div>
+      <div class="code">TL · TLS</div>
+      <label class="review">
+        <input type="checkbox" data-code="TL">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TL">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="togo togolese republic tg tgo">
+      <div class="flag">
+        <img
+          src="public/flags/tg.svg"
+          alt="Flag of Togo"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Togo</div>
+      <div class="code">TG · TGO</div>
+      <label class="review">
+        <input type="checkbox" data-code="TG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="tonga kingdom of tonga to ton">
+      <div class="flag">
+        <img
+          src="public/flags/to.svg"
+          alt="Flag of Tonga"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Tonga</div>
+      <div class="code">TO · TON</div>
+      <label class="review">
+        <input type="checkbox" data-code="TO">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TO">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="trinidad and tobago republic of trinidad and tobago tt tto">
+      <div class="flag">
+        <img
+          src="public/flags/tt.svg"
+          alt="Flag of Trinidad and Tobago"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Trinidad and Tobago</div>
+      <div class="code">TT · TTO</div>
+      <label class="review">
+        <input type="checkbox" data-code="TT">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TT">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="tunisia tunisian republic tn tun">
+      <div class="flag">
+        <img
+          src="public/flags/tn.svg"
+          alt="Flag of Tunisia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Tunisia</div>
+      <div class="code">TN · TUN</div>
+      <label class="review">
+        <input type="checkbox" data-code="TN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="türkiye republic of türkiye tr tur">
+      <div class="flag">
+        <img
+          src="public/flags/tr.svg"
+          alt="Flag of Türkiye"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Türkiye</div>
+      <div class="code">TR · TUR</div>
+      <label class="review">
+        <input type="checkbox" data-code="TR">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TR">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="turkmenistan turkmenistan tm tkm">
+      <div class="flag">
+        <img
+          src="public/flags/tm.svg"
+          alt="Flag of Turkmenistan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Turkmenistan</div>
+      <div class="code">TM · TKM</div>
+      <label class="review">
+        <input type="checkbox" data-code="TM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="tuvalu tuvalu tv tuv">
+      <div class="flag">
+        <img
+          src="public/flags/tv.svg"
+          alt="Flag of Tuvalu"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Tuvalu</div>
+      <div class="code">TV · TUV</div>
+      <label class="review">
+        <input type="checkbox" data-code="TV">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="TV">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="uganda republic of uganda ug uga">
+      <div class="flag">
+        <img
+          src="public/flags/ug.svg"
+          alt="Flag of Uganda"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Uganda</div>
+      <div class="code">UG · UGA</div>
+      <label class="review">
+        <input type="checkbox" data-code="UG">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="UG">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="ukraine ukraine ua ukr">
+      <div class="flag">
+        <img
+          src="public/flags/ua.svg"
+          alt="Flag of Ukraine"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Ukraine</div>
+      <div class="code">UA · UKR</div>
+      <label class="review">
+        <input type="checkbox" data-code="UA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="UA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="united arab emirates united arab emirates ae are">
+      <div class="flag">
+        <img
+          src="public/flags/ae.svg"
+          alt="Flag of United Arab Emirates"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">United Arab Emirates</div>
+      <div class="code">AE · ARE</div>
+      <label class="review">
+        <input type="checkbox" data-code="AE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="AE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="united kingdom united kingdom of great britain and northern ireland gb gbr">
+      <div class="flag">
+        <img
+          src="public/flags/gb.svg"
+          alt="Flag of United Kingdom"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">United Kingdom</div>
+      <div class="code">GB · GBR</div>
+      <label class="review">
+        <input type="checkbox" data-code="GB">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="GB">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="united states united states of america us usa">
+      <div class="flag">
+        <img
+          src="public/flags/us.svg"
+          alt="Flag of United States"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">United States</div>
+      <div class="code">US · USA</div>
+      <label class="review">
+        <input type="checkbox" data-code="US">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="US">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="uruguay oriental republic of uruguay uy ury">
+      <div class="flag">
+        <img
+          src="public/flags/uy.svg"
+          alt="Flag of Uruguay"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Uruguay</div>
+      <div class="code">UY · URY</div>
+      <label class="review">
+        <input type="checkbox" data-code="UY">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="UY">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="uzbekistan republic of uzbekistan uz uzb">
+      <div class="flag">
+        <img
+          src="public/flags/uz.svg"
+          alt="Flag of Uzbekistan"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Uzbekistan</div>
+      <div class="code">UZ · UZB</div>
+      <label class="review">
+        <input type="checkbox" data-code="UZ">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="UZ">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="vanuatu republic of vanuatu vu vut">
+      <div class="flag">
+        <img
+          src="public/flags/vu.svg"
+          alt="Flag of Vanuatu"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Vanuatu</div>
+      <div class="code">VU · VUT</div>
+      <label class="review">
+        <input type="checkbox" data-code="VU">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="VU">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="vatican city vatican city state va vat">
+      <div class="flag">
+        <img
+          src="public/flags/va.svg"
+          alt="Flag of Vatican City"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Vatican City</div>
+      <div class="code">VA · VAT</div>
+      <label class="review">
+        <input type="checkbox" data-code="VA">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="VA">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="venezuela bolivarian republic of venezuela ve ven">
+      <div class="flag">
+        <img
+          src="public/flags/ve.svg"
+          alt="Flag of Venezuela"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Venezuela</div>
+      <div class="code">VE · VEN</div>
+      <label class="review">
+        <input type="checkbox" data-code="VE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="VE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="vietnam socialist republic of vietnam vn vnm">
+      <div class="flag">
+        <img
+          src="public/flags/vn.svg"
+          alt="Flag of Vietnam"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Vietnam</div>
+      <div class="code">VN · VNM</div>
+      <label class="review">
+        <input type="checkbox" data-code="VN">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="VN">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="yemen republic of yemen ye yem">
+      <div class="flag">
+        <img
+          src="public/flags/ye.svg"
+          alt="Flag of Yemen"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Yemen</div>
+      <div class="code">YE · YEM</div>
+      <label class="review">
+        <input type="checkbox" data-code="YE">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="YE">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="zambia republic of zambia zm zmb">
+      <div class="flag">
+        <img
+          src="public/flags/zm.svg"
+          alt="Flag of Zambia"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Zambia</div>
+      <div class="code">ZM · ZMB</div>
+      <label class="review">
+        <input type="checkbox" data-code="ZM">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ZM">
+        Flag needs investigation
+      </label>
+    </article>
+  
+
+    <article class="card" data-search="zimbabwe republic of zimbabwe zw zwe">
+      <div class="flag">
+        <img
+          src="public/flags/zw.svg"
+          alt="Flag of Zimbabwe"
+          loading="lazy"
+        >
+      </div>
+      <div class="name">Zimbabwe</div>
+      <div class="code">ZW · ZWE</div>
+      <label class="review">
+        <input type="checkbox" data-code="ZW">
+        Visually reviewed
+      </label>
+      <label class="issue">
+        <input type="checkbox" data-issue="ZW">
+        Flag needs investigation
+      </label>
+    </article>
+  
+</main>
+<script>
+  const search = document.getElementById("search");
+  const cards = [...document.querySelectorAll(".card")];
+
+  function update() {
+    const query = search.value.trim().toLowerCase();
+    let visible = 0;
+
+    for (const card of cards) {
+      const match = card.dataset.search.includes(query);
+      card.classList.toggle("hidden", !match);
+      if (match) visible++;
+    }
+
+    const reviewed = document.querySelectorAll(
+      'input[data-code]:checked'
+    ).length;
+    const issues = document.querySelectorAll(
+      'input[data-issue]:checked'
+    ).length;
+
+    document.getElementById("status").textContent =
+      visible + " shown · " + reviewed + "/" + cards.length +
+      " reviewed · " + issues + " flagged for investigation";
+  }
+
+  search.addEventListener("input", update);
+  document.addEventListener("change", update);
+
+  document.getElementById("export").addEventListener("click", () => {
+    const report = {
+      generatedAt: new Date().toISOString(),
+      totalCountries: cards.length,
+      reviewedCodes: [...document.querySelectorAll(
+        'input[data-code]:checked'
+      )].map(input => input.dataset.code),
+      investigationCodes: [...document.querySelectorAll(
+        'input[data-issue]:checked'
+      )].map(input => input.dataset.issue)
+    };
+
+    const blob = new Blob(
+      [JSON.stringify(report, null, 2)],
+      { type: "application/json" }
+    );
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "flag-audit-report.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  update();
+</script>
+</body>
+</html>
