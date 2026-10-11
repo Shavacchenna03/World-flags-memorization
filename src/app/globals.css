@@ -2,7 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap');
 
 :root {
-  /* Warm Charcoal & Natural Tones */
+  /* Default Warm Editorial Palette (Also dynamically configurable via src/lib/theme.ts) */
+  --bg-primary: #171814;
   --bg-main: #171814;
   --bg-secondary: #1E1F19;
   --surface-elevated: #25261F;
@@ -20,25 +21,47 @@
   --text-muted: #828276;
   --text-faint: #5C5C52;
 
-  /* Primary Accent: Muted Olive */
+  /* Semantic Primary Accent (Default: Muted Olive) */
+  --accent-primary: #A6A77A;
+  --accent-primary-hover: #B8B98B;
+  --accent-primary-subtle: rgba(166, 167, 122, 0.12);
+  --accent-primary-border: rgba(166, 167, 122, 0.28);
+  --accent-primary-contrast: #171814;
+
+  /* Backwards-compatible aliases */
   --accent-olive: #A6A77A;
   --accent-olive-hover: #B8B98B;
   --accent-olive-subtle: rgba(166, 167, 122, 0.12);
   --accent-olive-border: rgba(166, 167, 122, 0.28);
 
-  /* Secondary Accent: Subdued Warm Amber */
+  /* Semantic Secondary Accent (Default: Subdued Warm Amber) */
+  --accent-secondary: #C5A574;
+  --accent-secondary-subtle: rgba(197, 165, 116, 0.12);
+  --accent-secondary-border: rgba(197, 165, 116, 0.28);
   --accent-amber: #C5A574;
-  --accent-amber-subtle: rgba(197, 165, 116, 0.12);
-  --accent-amber-border: rgba(197, 165, 116, 0.28);
 
   /* Feedback States (Warm, Muted) */
+  --status-success: #7DA383;
+  --status-success-subtle: rgba(125, 163, 131, 0.14);
+  --status-success-border: rgba(125, 163, 131, 0.35);
   --status-correct: #7DA383;
   --status-correct-subtle: rgba(125, 163, 131, 0.14);
   --status-correct-border: rgba(125, 163, 131, 0.35);
 
+  --status-error: #C26762;
+  --status-error-subtle: rgba(194, 103, 98, 0.14);
+  --status-error-border: rgba(194, 103, 98, 0.35);
   --status-incorrect: #C26762;
   --status-incorrect-subtle: rgba(194, 103, 98, 0.14);
   --status-incorrect-border: rgba(194, 103, 98, 0.35);
+
+  --status-warning: #C5A574;
+  --status-warning-subtle: rgba(197, 165, 116, 0.12);
+
+  /* Hero Animated Background Overlays */
+  --hero-overlay-center: rgba(23, 24, 20, 0.91);
+  --hero-overlay-edge: rgba(23, 24, 20, 0.72);
+  --hero-backdrop: #12130F;
 
   /* Typography Stacks */
   --font-serif: "Newsreader", "Charter", "Bitstream Charter", "Sitka Text", "Georgia", serif;
@@ -67,7 +90,7 @@
 html,
 body {
   min-height: 100%;
-  background-color: var(--bg-main);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
   line-height: 1.6;
@@ -115,7 +138,9 @@ input {
 
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

@@ -1,247 +1,303 @@
-.workspaceContainer {
-  padding: 3rem 0 5rem;
+.dashboardLayout {
+  padding: 2.5rem 0 5rem;
 }
 
-.workspaceHeader {
-  margin-bottom: 2.25rem;
-  padding-bottom: 1.5rem;
+.dashboardHeader {
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--border-divider);
 }
 
-.title {
+.pageTitle {
   font-family: var(--font-serif);
   font-size: 2.25rem;
   font-weight: 500;
   color: var(--text-primary);
   letter-spacing: -0.015em;
-  margin-bottom: 0.5rem;
+  line-height: 1.2;
 }
 
-/* Understated, Compact Progress Strip */
-.progressStrip {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-}
-
-.progressItem {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.4rem;
-}
-
-.progressValue {
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.progressDivider {
-  color: var(--border-divider);
-  user-select: none;
-}
-
-/* Resume Learning Section */
-.resumeSection {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-divider);
-  border-radius: var(--radius-sm);
-  padding: 1.5rem 1.75rem;
-  margin-bottom: 3.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.resumeInfo {
-  display: flex;
-  flex-direction: column;
-}
-
-.resumeLabel {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent-olive);
-  margin-bottom: 0.25rem;
-}
-
-.resumeHeading {
-  font-family: var(--font-serif);
-  font-size: 1.375rem;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.resumeDescription {
-  font-size: 0.8125rem;
+.pageSubtitle {
+  font-size: 0.875rem;
   color: var(--text-secondary);
   margin-top: 0.25rem;
 }
 
-.resumeBtn {
+/* 1. PRIMARY: Next Lesson Card */
+.nextLessonCard {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-divider);
+  border-radius: var(--radius-sm);
+  padding: 1.75rem 2rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.75rem;
+  box-shadow: var(--shadow-subtle);
+  border-left: 3px solid var(--accent-primary);
+}
+
+.nextLessonInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.nextLessonBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: 0.35rem;
+}
+
+.nextLessonTitle {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.nextLessonDesc {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  margin-top: 0.35rem;
+  line-height: 1.5;
+}
+
+.nextLessonAction {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--accent-olive);
-  color: var(--bg-main);
+  background-color: var(--accent-primary);
+  color: var(--accent-primary-contrast);
   font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.65rem 1.35rem;
+  letter-spacing: 0.01em;
+  padding: 0.75rem 1.6rem;
   border-radius: var(--radius-xs);
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease;
   white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
 }
 
-.resumeBtn:hover {
-  background-color: var(--accent-olive-hover);
+.nextLessonAction:hover {
+  background-color: var(--accent-primary-hover);
+  transform: translateY(-1px);
 }
 
-/* Continents Section */
-.section {
+/* 2. SECONDARY: Compact Learning Analytics Section */
+.analyticsSection {
   margin-bottom: 3.5rem;
 }
 
-.sectionHeader {
+.analyticsHeader {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1rem;
 }
 
-.sectionTitle {
+.sectionHeading {
   font-family: var(--font-serif);
-  font-size: 1.375rem;
+  font-size: 1.25rem;
   font-weight: 500;
   color: var(--text-primary);
 }
 
-.sectionNote {
+.sectionSubtext {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
 
-/* Scannable Continent List Rows */
-.continentList {
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.analyticsCard {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-divider);
+  border-radius: var(--radius-xs);
+  padding: 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.analyticsValue {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.analyticsLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
+.analyticsMeter {
+  width: 100%;
+  height: 3px;
+  background-color: var(--border-subtle);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 0.65rem;
+}
+
+.analyticsMeterFill {
+  height: 100%;
+  background-color: var(--accent-primary);
+  transition: width 0.3s ease;
+}
+
+.analyticsHint {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
+
+/* 3. TERTIARY: Continent Curriculum Section */
+.curriculumSection {
+  margin-bottom: 3.5rem;
+}
+
+.curriculumList {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border-divider);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   background-color: var(--bg-secondary);
   overflow: hidden;
 }
 
-.continentRow {
+.curriculumRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.15rem 1.5rem;
+  padding: 1.1rem 1.5rem;
   border-bottom: 1px solid var(--border-subtle);
   transition: background-color 0.12s ease;
   color: inherit;
 }
 
-.continentRow:last-child {
+.curriculumRow:last-child {
   border-bottom: none;
 }
 
-.continentRow:hover {
+.curriculumRow:hover {
   background-color: var(--surface-elevated);
 }
 
-.continentLeft {
-  display: flex;
-  flex-direction: column;
+.curriculumRowDisabled {
+  opacity: 0.55;
+  background-color: var(--bg-primary);
+  cursor: default;
 }
 
-.continentName {
+.curriculumRowDisabled:hover {
+  background-color: var(--bg-primary);
+}
+
+.curriculumName {
   font-family: var(--font-serif);
   font-size: 1.125rem;
   font-weight: 500;
   color: var(--text-primary);
 }
 
-.continentMeta {
+.curriculumMeta {
   font-size: 0.75rem;
   color: var(--text-muted);
   margin-top: 0.15rem;
 }
 
-.continentRight {
+.curriculumRight {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
-.continentProgress {
+.curriculumProgress {
   font-size: 0.75rem;
   color: var(--text-secondary);
 }
 
-.actionIndicator {
+.curriculumAction {
   font-size: 0.8125rem;
-  color: var(--accent-olive);
+  color: var(--accent-primary);
   font-weight: 500;
 }
 
-.continentRowDisabled {
-  opacity: 0.55;
-  background-color: var(--bg-main);
-  cursor: default;
-}
-
-.continentRowDisabled:hover {
-  background-color: var(--bg-main);
-}
-
-/* Retention Notice */
-.reviewNotice {
-  padding: 1.25rem 1.5rem;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-divider);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: flex-start;
+/* 4. QUATERNARY: Secondary Study Tools */
+.secondaryToolsSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-.reviewNoticeGlyph {
-  color: var(--accent-amber);
-  font-size: 1rem;
-  line-height: 1.4;
+.secondaryToolCard {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-divider);
+  border-radius: var(--radius-xs);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.reviewNoticeText h4 {
+.secondaryToolCard h4 {
   font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.reviewNoticeText p {
+.secondaryToolCard p {
   font-size: 0.8125rem;
   color: var(--text-secondary);
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
   line-height: 1.5;
 }
 
-@media (max-width: 640px) {
-  .resumeSection {
+.secondaryToolLink {
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  color: var(--accent-primary);
+  font-weight: 500;
+}
+
+.secondaryToolLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .nextLessonCard {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1.5rem;
   }
-  .continentRow {
+  .analyticsGrid {
+    grid-template-columns: 1fr;
+  }
+  .secondaryToolsSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .curriculumRow {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
   }
-  .continentRight {
+  .curriculumRight {
     width: 100%;
     justify-content: space-between;
   }

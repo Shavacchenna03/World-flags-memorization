@@ -15,6 +15,7 @@ import {
   getProgressStats,
   resetProgress,
   loadProgress,
+  getNextLessonRecommendation,
 } from '../src/lib/progress';
 
 describe('Phase 2 Learning Workflow & Domain Logic', () => {
@@ -193,6 +194,76 @@ describe('Phase 2 Learning Workflow & Domain Logic', () => {
       expect(stats.completedBatchCount).toBe(1);
       expect(stats.practiceAttemptsCount).toBe(2);
       expect(stats.practiceAccuracy).toBe(50); // 1 out of 2 = 50%
+    });
+
+    it('derives the next recommended lesson dynamically based on progress', () => {
+      const getBatchDetails = (continent: any, batchIndex: number) => {
+        const batch = getBatch(continent, batchIndex);
+        if (!batch) return undefined;
+        return { countryCount: batch.countries.length, totalBatches: batch.totalBatches };
+      };
+
+      // 1. Brand new user -> Africa Batch 1
+      const initial = createDefaultProgress();
+      const rec1 = getNextLessonRecommendation(initial, getBatchDetails);
+      expect(rec1.continent).toBe('Africa');
+      expect(rec1.batchIndex).toBe(0);
+      expect(rec1.batchNumber).toBe(1);
+      expect(rec1.actionType).toBe('start');
+      expect(rec1.badgeLabel).toBe('First Lesson');
+
+      // 2. Active session uncompleted -> Resumes session
+      const withSession = {
+        ...initial,
+        lastSession: {
+          continent: 'Asia' as const,
+          batchIndex: 1,
+          mode: 'study' as const,
+          timestamp: Date.now(),
+        },
+      };
+      const rec2 = getNextLessonRecommendation(withSession, getBatchDetails);
+      expect(rec2.continent).toBe('Asia');
+      expect(rec2.batchIndex).toBe(1);
+      expect(rec2.actionType).toBe('resume');
+      expect(rec2.badgeLabel).toBe('Resume Lesson');
+
+      // 3. Africa Batch 0 completed -> Recommends Africa Batch 1 (batchNumber 2)
+      const afterAfrica0 = {
+        ...initial,
+        completedBatches: { Africa: [0] },
+      };
+      const rec3 = getNextLessonRecommendation(afterAfrica0, getBatchDetails);
+      expect(rec3.continent).toBe('Africa');
+      expect(rec3.batchIndex).toBe(1);
+      expect(rec3.batchNumber).toBe(2);
+      expect(rec3.actionType).toBe('next');
+
+      // 4. All Africa batches completed -> Moves to Asia Batch 1
+      const afterAllAfrica = {
+        ...initial,
+        completedBatches: { Africa: [0, 1, 2, 3, 4, 5] },
+      };
+      const rec4 = getNextLessonRecommendation(afterAllAfrica, getBatchDetails);
+      expect(rec4.continent).toBe('Asia');
+      expect(rec4.batchIndex).toBe(0);
+      expect(rec4.batchNumber).toBe(1);
+
+      // 5. All continents completed
+      const allCompleted = {
+        ...initial,
+        completedBatches: {
+          Africa: [0, 1, 2, 3, 4, 5],
+          Asia: [0, 1, 2, 3, 4],
+          Europe: [0, 1, 2, 3, 4],
+          'North America': [0, 1, 2],
+          'South America': [0, 1],
+          Oceania: [0, 1],
+        },
+      };
+      const rec5 = getNextLessonRecommendation(allCompleted, getBatchDetails);
+      expect(rec5.actionType).toBe('all-completed');
+      expect(rec5.badgeLabel).toBe('Curriculum Completed');
     });
   });
 });
