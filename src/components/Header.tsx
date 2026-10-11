@@ -7,23 +7,21 @@ import styles from './Header.module.css';
 
 export function Header() {
   const pathname = usePathname();
-
-  // On the minimal landing page root, show a very subtle header or logo
   const isLanding = pathname === '/';
 
   return (
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
         <Link href={isLanding ? '/' : '/learn'} className={styles.brand} aria-label="World Flags">
-          <span className={styles.logoIcon} aria-hidden="true">🌐</span>
+          <span className={styles.brandMark} aria-hidden="true">✦</span>
           <span>World Flags</span>
-          <span className={styles.brandBadge}>195</span>
+          <span className={styles.brandScope}>195 Nations</span>
         </Link>
 
-        <nav className={styles.nav} aria-label="Workspace Navigation">
+        <nav className={styles.nav} aria-label="Main Navigation">
           {isLanding ? (
             <Link href="/learn" className={styles.navLinkActive}>
-              Enter Workspace →
+              Workspace →
             </Link>
           ) : (
             <>
@@ -39,8 +37,8 @@ export function Header() {
               >
                 Flag Explorer
               </Link>
-              <Link href="/" className={styles.navLink} title="Exit to landing page">
-                Home
+              <Link href="/" className={`${styles.navLink} ${styles.exitLink}`} title="Back to entrance">
+                Exit
               </Link>
             </>
           )}

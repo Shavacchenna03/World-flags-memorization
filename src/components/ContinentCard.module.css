@@ -1,25 +1,23 @@
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-divider);
+  border-radius: var(--radius-sm);
   padding: 1.25rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-subtle);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.12s ease;
 }
 
 .card:hover {
-  border-color: var(--brand-border);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  background-color: var(--surface-elevated);
 }
 
 .cardAntarctica {
-  background: #f8fafc;
+  background-color: var(--bg-main);
   border-style: dashed;
-  opacity: 0.85;
+  opacity: 0.6;
 }
 
 .cardHeader {
@@ -30,31 +28,32 @@
 }
 
 .continentName {
+  font-family: var(--font-serif);
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--text-primary);
 }
 
 .countBadge {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.2rem 0.5rem;
-  background-color: var(--brand-subtle);
-  color: var(--brand-primary);
-  border-radius: 9999px;
-  border: 1px solid var(--brand-border);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: 0.15rem 0.45rem;
+  background-color: var(--accent-olive-subtle);
+  color: var(--accent-olive);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--accent-olive-border);
 }
 
 .countBadgeZero {
-  background-color: var(--bg-secondary);
+  background-color: var(--surface-elevated);
   color: var(--text-muted);
-  border-color: var(--border);
+  border-color: var(--border-divider);
 }
 
 .description {
   font-size: 0.8125rem;
   color: var(--text-secondary);
-  line-height: 1.4;
+  line-height: 1.5;
   margin-bottom: 1rem;
   flex-grow: 1;
 }
@@ -64,15 +63,15 @@
   align-items: center;
   gap: 0.5rem;
   padding-top: 0.75rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .previewLabel {
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 0.35rem;
 }
 

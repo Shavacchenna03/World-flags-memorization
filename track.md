@@ -12,22 +12,22 @@
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                 ENTRY POINT                                  │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│                         [Landing Page (/)] (Minimal Dark)                    │
-│      • Wordmark & Core Mission: "Know every flag. Remember every country."   │
-│      • Subtle curated flag mosaic ribbon                                     │
-│      • Primary CTA: [Start Learning] ──────────────────────┐                 │
+│                [Landing Page (/)] (Warm Charcoal & Literary Serif)           │
+│      • Wordmark & Mission: "Know every flag. Remember every country."        │
+│      • Subtle flag vignette framed by hairline rules                         │
+│      • Primary CTA: [Start Learning] (Muted Olive) ────────┐                 │
 └────────────────────────────────────────────────────────────┼─────────────────┘
                                                              │
                                                              ▼
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│                       PERSONAL STUDY WORKSPACE (/learn)                      │
+│                    STUDY WORKSPACE DASHBOARD (/learn)                        │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│  [Resume Action Card]               [Real Progress Stats]                    │
-│    • Resume active / next batch       • Introduced: X / 195                  │
-│    • e.g. "Africa · Batch 1"          • Completed Batches: Y                 │
-│                                       • Practice Accuracy: Z%                │
+│  [Current Lesson Surface]            [Inline Progress Strip]                 │
+│    • Resume active / next batch        • Introduced: X / 195 Flags           │
+│    • e.g. "Africa · Batch 1"           • Completed Batches: Y                │
+│                                        • Recall Accuracy: Z%                 │
 │                                                            │                 │
-│  [Seven-Continent Progression Grid]                        │                 │
+│  [Continents Curriculum (Scannable Rows)]                  │                 │
 │    • Africa (54 / 6 batches)          • North America (23 / 3 batches)       │
 │    • Asia (47 / 5 batches)            • South America (12 / 2 batches)       │
 │    • Europe (45 / 5 batches)          • Oceania (14 / 2 batches)             │
@@ -36,8 +36,8 @@
 │                              ▼ (Select Continent)                            │
 │  [/learn/continents/[continent]]                                             │
 │    • Sequential batch cards (10 flags each, final batch remainder)           │
-│    • Status badges: "Ready to Study", "Introduced", "Completed"              │
-│    • Dual actions: [Study Batch] and [Practice Batch]                        │
+│    • Subtle text tags: "Ready to Study", "Introduced", "Completed"           │
+│    • Actions: [Study Batch] and [Practice Batch]                             │
 └──────────────┬─────────────────────────────────────────────┬─────────────────┘
                │                                             │
                ▼                                             ▼
@@ -70,8 +70,8 @@
 
 ```mermaid
 flowchart TD
-    LAND["Landing Page (/)"] -->|Start Learning| DASH["Study Workspace (/learn)"]
-    DASH --> CONT["Continent Batches (/learn/continents/[continent])"]
+    LAND["Landing Page (/) - Warm Editorial"] -->|Start Learning| DASH["Study Workspace (/learn)"]
+    DASH --> CONT["Continents Curriculum (/learn/continents/[continent])"]
     DASH --> EXPL["Flag Explorer (/learn/explorer)"]
 
     CONT --> STUDY["Batch Study Screen (/learn/study/...)"]
@@ -92,17 +92,24 @@ flowchart TD
 
 ---
 
-## 2. Key Specifications & Metrics
+## 2. Key Specifications & Design Tokens
 
-| Category | Requirement | Current Status |
+| Token / Category | Value / Standard | Description |
 | :--- | :--- | :--- |
-| **Scope** | 195 Sovereign Countries (193 UN + 2 Observers) | Verified (10/10 checks passed) |
-| **Continents** | 7 Continents structured (Antarctica = 0 sovereign) | Implemented & verified |
-| **Batching** | Sequential batches of 10 flags | Implemented (6 in AF, 5 in AS, 5 in EU, 3 in NA, 2 in SA, 2 in OC) |
-| **Theme** | Minimalist Dark Personal Workspace | Implemented throughout app |
-| **Practice Modes** | Multiple Choice, Typed Recall, Flashcards | Implemented with real session feedback |
-| **Persistence** | Versioned browser localStorage (v1) | Implemented with schema validation & tests |
-| **Unit Tests** | Focused automated test coverage | 22/22 unit tests passing |
+| **Main Background** | `#171814` | Warm charcoal base |
+| **Secondary Background** | `#1E1F19` | Soft muted charcoal |
+| **Elevated Surface** | `#25261F` | Warm charcoal stone |
+| **Primary Text** | `#EAE6DC` | Soft warm linen |
+| **Secondary Text** | `#AAA99D` | Muted stone gray |
+| **Muted Text** | `#828276` | Olive slate |
+| **Dividers** | `#38392F` | Refined hairline border |
+| **Primary Accent** | `#A6A77A` | Muted olive |
+| **Secondary Accent**| `#C5A574` | Subdued warm amber |
+| **Success State** | `#7DA383` | Muted sage green |
+| **Error State** | `#C26762` | Muted terracotta |
+| **Headings Font** | `Newsreader` / `Charter` / `Georgia` | Literary, editorial serif |
+| **Body Font** | System sans stack | High-legibility UI sans |
+| **Monospace Font** | `ui-monospace`, `Cascadia Code` | ISO codes and batch counters |
 
 ---
 
@@ -117,12 +124,14 @@ flowchart TD
 - Implemented `FlagImage` preserving authentic flag aspect ratios with local SVG assets.
 - Created automated test suites for data loading and flag verification.
 
-### Prompt 2: Redesign + Phase 2 — Minimalist Dark Theme & Learning Experience
-- **Landing Page Redesign:** Transformed `/` into a focused dark hero experience with clean headline, supporting sentence, primary CTA **Start Learning**, and subtle flag mosaic ribbon (no marketing clutter or fake statistics).
-- **Dedicated Study Workspace:** Created `/learn` with real progress stats, "Continue Learning" action card, seven-continent overview, and retention review status.
-- **Continent Learning Path:** Created `/learn/continents/[continent]` listing sequential batches of 10 countries with status indicators.
-- **Batch Study Interface:** Created `/learn/study/[continent]/[batchIndex]` with flag presentation, metadata, keyboard arrow navigation, and introduction completion.
-- **Active Practice Session:** Created `/learn/practice/[continent]/[batchIndex]` supporting Multiple Choice (4 distinct options), Typed Recall (casing/whitespace/alias normalization), and Flashcards (Again/Hard/Good/Easy), culminating in real session summaries.
-- **Progress Persistence:** Implemented `src/lib/progress.ts` with versioned localStorage schema (`v1`), safe SSR/test fallback, and automated schema validation.
-- **Flag Explorer:** Preserved searchable registry at `/learn/explorer`.
-- **Automated Verification:** Added 13 new unit tests (22 total passing), verified TypeScript (`tsc --noEmit`), passed production build (`next build`), and ran existing dataset audit scripts.
+### Prompt 2: Phase 2 — Minimalist Dark Theme & Learning Experience
+- Created initial dark landing page and study dashboard.
+- Built continent learning paths, sequential batches, multiple choice, typed recall, flashcards, and session summaries.
+- Implemented versioned browser-local persistence (`localStorage` v1).
+
+### Prompt 3: Visual Redesign & Design-System Correction
+- **Replaced Generic Palette:** Eliminated electric blue accents, bright blue borders, glowing neon elements, and artificial gradients. Introduced a warm, natural palette based on warm charcoal (`#171814`), elevated stone surfaces (`#25261F`), warm linen text (`#EAE6DC`), hairline dividers (`#38392F`), and muted olive accents (`#A6A77A`).
+- **Typographic System:** Replaced oversized ultra-bold headings with literary display serif typography (`Newsreader` / `Charter` / `Georgia`), paired with crisp sans-serif body text.
+- **De-carded Dashboard Layout:** Removed the 3 oversized stat cards and identical card grids. Replaced with an understated inline progress strip (`10 of 195 Flags Introduced · 1 Batch Complete · 85% Accuracy`), a quiet lesson resume surface, and clean, scannable continent rows.
+- **Refined Study & Practice Screens:** Replaced cartoonish emojis with subtle typography and glyphs (`✓`, `✦`). Replaced high-contrast neon feedback with muted sage green (`#7DA383`) and terracotta (`#C26762`).
+- **Verified Zero Functional Regressions:** All 22 automated tests, TypeScript check (`tsc --noEmit`), production build (`next build`), and dataset integrity scripts continue to pass with 0 errors.

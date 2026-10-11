@@ -76,7 +76,7 @@ export default function BatchStudyPage({ params }: StudyPageProps) {
     return (
       <div className={styles.studyContainer}>
         <div className={styles.completeCard}>
-          <div className={styles.completeIcon} aria-hidden="true">🎉</div>
+          <div className={styles.completeGlyph} aria-hidden="true">✓</div>
           <h1 className={styles.completeTitle}>Batch Introduction Complete</h1>
           <p className={styles.completeDesc}>
             You have studied all <strong>{countries.length}</strong> flags in {rawContinent} · Batch {batch.batchNumber}.

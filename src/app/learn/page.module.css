@@ -1,122 +1,109 @@
-.dashboardContainer {
-  padding: 2.5rem 0 5rem;
+.workspaceContainer {
+  padding: 3rem 0 5rem;
 }
 
-.headerRow {
-  margin-bottom: 2rem;
+.workspaceHeader {
+  margin-bottom: 2.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-divider);
 }
 
 .title {
-  font-size: 1.875rem;
-  font-weight: 800;
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 500;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.5rem;
 }
 
-.subtitle {
-  font-size: 0.9375rem;
+/* Understated, Compact Progress Strip */
+.progressStrip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.8125rem;
   color: var(--text-secondary);
-  margin-top: 0.25rem;
 }
 
-/* Continue Learning Hero Card */
-.continueCard {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(17, 24, 39, 0.9) 100%);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--brand-primary);
-  border-radius: var(--radius-md);
+.progressItem {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.progressValue {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.progressDivider {
+  color: var(--border-divider);
+  user-select: none;
+}
+
+/* Resume Learning Section */
+.resumeSection {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-divider);
+  border-radius: var(--radius-sm);
   padding: 1.5rem 1.75rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  box-shadow: var(--shadow-sm);
 }
 
-.continueInfo {
+.resumeInfo {
   display: flex;
   flex-direction: column;
 }
 
-.continueBadge {
+.resumeLabel {
   font-size: 0.6875rem;
-  font-weight: 700;
-  text-transform: uppercase;
+  font-weight: 600;
   letter-spacing: 0.06em;
-  color: var(--brand-primary);
-  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  color: var(--accent-olive);
+  margin-bottom: 0.25rem;
 }
 
-.continueTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
+.resumeHeading {
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-weight: 500;
   color: var(--text-primary);
 }
 
-.continueDesc {
-  font-size: 0.875rem;
+.resumeDescription {
+  font-size: 0.8125rem;
   color: var(--text-secondary);
   margin-top: 0.25rem;
 }
 
-.continueBtn {
+.resumeBtn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--brand-primary);
-  color: #ffffff;
+  background-color: var(--accent-olive);
+  color: var(--bg-main);
+  font-size: 0.875rem;
   font-weight: 600;
-  font-size: 0.9375rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-sm);
-  transition: all 0.15s ease;
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--radius-xs);
+  transition: background-color 0.15s ease;
   white-space: nowrap;
 }
 
-.continueBtn:hover {
-  background-color: var(--brand-primary-hover);
-  transform: translateY(-1px);
+.resumeBtn:hover {
+  background-color: var(--accent-olive-hover);
 }
 
-/* Progress Stats Grid */
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-}
-
-.statCard {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-}
-
-.statValue {
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  line-height: 1.2;
-}
-
-.statLabel {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-top: 0.35rem;
-}
-
-.statSubtext {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 0.2rem;
-}
-
-/* Section */
+/* Continents Section */
 .section {
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 .sectionHeader {
@@ -124,132 +111,138 @@
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .sectionTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-weight: 500;
   color: var(--text-primary);
 }
 
-.sectionDesc {
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-}
-
-/* Continents Grid */
-.continentsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.25rem;
-}
-
-.continentCard {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: all 0.15s ease;
-  cursor: pointer;
-}
-
-.continentCard:hover {
-  border-color: var(--brand-border);
-  background-color: var(--surface-hover);
-  transform: translateY(-2px);
-}
-
-.continentCardDisabled {
-  background-color: #0b1120;
-  border-style: dashed;
-  opacity: 0.65;
-  cursor: default;
-}
-
-.continentCardDisabled:hover {
-  transform: none;
-  border-color: var(--border);
-  background-color: #0b1120;
-}
-
-.cardTop {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-}
-
-.continentName {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.batchBadge {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--brand-primary);
-  background-color: var(--brand-subtle);
-  border: 1px solid var(--brand-border);
-  padding: 0.2rem 0.5rem;
-  border-radius: 9999px;
-}
-
-.continentMeta {
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
-
-.cardFooter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--border);
+.sectionNote {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
 
-.startLink {
-  color: var(--brand-primary);
-  font-weight: 600;
+/* Scannable Continent List Rows */
+.continentList {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-divider);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
+  overflow: hidden;
 }
 
-/* Review Status Card */
-.reviewBox {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
+.continentRow {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  justify-content: space-between;
+  padding: 1.15rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color 0.12s ease;
+  color: inherit;
 }
 
-.reviewIcon {
-  font-size: 2rem;
-  opacity: 0.7;
+.continentRow:last-child {
+  border-bottom: none;
 }
 
-.reviewText h4 {
+.continentRow:hover {
+  background-color: var(--surface-elevated);
+}
+
+.continentLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.continentName {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.continentMeta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.continentRight {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.continentProgress {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.actionIndicator {
+  font-size: 0.8125rem;
+  color: var(--accent-olive);
+  font-weight: 500;
+}
+
+.continentRowDisabled {
+  opacity: 0.55;
+  background-color: var(--bg-main);
+  cursor: default;
+}
+
+.continentRowDisabled:hover {
+  background-color: var(--bg-main);
+}
+
+/* Retention Notice */
+.reviewNotice {
+  padding: 1.25rem 1.5rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-divider);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.reviewNoticeGlyph {
+  color: var(--accent-amber);
   font-size: 1rem;
+  line-height: 1.4;
+}
+
+.reviewNoticeText h4 {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.reviewText p {
+.reviewNoticeText p {
   font-size: 0.8125rem;
   color: var(--text-secondary);
-  margin-top: 0.25rem;
+  margin-top: 0.2rem;
+  line-height: 1.5;
 }
 
 @media (max-width: 640px) {
-  .continueCard {
+  .resumeSection {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .continentRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .continentRight {
+    width: 100%;
+    justify-content: space-between;
   }
 }

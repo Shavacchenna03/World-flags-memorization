@@ -13,19 +13,19 @@ export default function ExplorerPage() {
 
   return (
     <div className="container" style={{ padding: '2.5rem 0 5rem' }}>
-      <div style={{ marginBottom: '1.5rem', fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
-        <Link href="/learn" style={{ color: 'var(--brand-primary)' }}>
+      <div style={{ marginBottom: '1.5rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+        <Link href="/learn" style={{ color: 'var(--text-secondary)' }}>
           ← Dashboard
         </Link>
         <span style={{ margin: '0 0.5rem' }}>/</span>
         <span>Flag Explorer</span>
       </div>
 
-      <header style={{ marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+      <header style={{ marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border-divider)' }}>
+        <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.25rem', fontWeight: 500, color: 'var(--text-primary)', letterSpacing: '-0.015em' }}>
           Flag Explorer
         </h1>
-        <p style={{ fontSize: '0.9375rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
           Reference library of all 195 sovereign countries with native SVG vector flags and ISO metadata.
         </p>
       </header>

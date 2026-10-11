@@ -5,18 +5,18 @@ import { getCountryByCode } from '../lib/countries';
 import { FlagImage } from '../components/FlagImage';
 
 export default function LandingPage() {
-  // A subtle, balanced sample mosaic across continents
-  const mosaicCodes = ['NP', 'JP', 'BR', 'ZA', 'GR', 'CA', 'NZ', 'SE'];
-  const mosaicCountries = mosaicCodes
+  // A subtle, balanced selection of 6 representative sovereign flags
+  const sampleCodes = ['NP', 'JP', 'ZA', 'GR', 'BR', 'SE'];
+  const sampleCountries = sampleCodes
     .map((code) => getCountryByCode(code))
     .filter((c) => c !== undefined);
 
   return (
     <main className={styles.landingContainer}>
       <div className={styles.heroContent}>
-        <div className={styles.wordmark}>
-          <span className={styles.wordmarkDot} aria-hidden="true" />
-          <span>World Flags</span>
+        <div className={styles.identityTag}>
+          <span className={styles.identityTagDot} aria-hidden="true" />
+          <span>Personal Flag Atlas</span>
         </div>
 
         <h1 className={styles.headline}>
@@ -25,26 +25,26 @@ export default function LandingPage() {
         </h1>
 
         <p className={styles.subheadline}>
-          A personal, local-first active recall study tool designed to help you
-          learn and permanently memorize the flags of all 195 sovereign countries.
+          A local-first study space designed to master the national flags of all
+          195 sovereign countries through sequential batches and active recall.
         </p>
 
-        <div className={styles.ctaGroup}>
+        <div className={styles.ctaWrapper}>
           <Link href="/learn" className={styles.startBtn}>
             <span>Start Learning</span>
-            <span className={styles.arrowIcon} aria-hidden="true">→</span>
+            <span className={styles.arrowGlyph} aria-hidden="true">→</span>
           </Link>
         </div>
 
-        {/* Subtle, restrained flag mosaic ribbon */}
-        <div className={styles.flagMosaic} aria-hidden="true">
-          {mosaicCountries.map((country) => (
+        {/* Subtle, quiet flag vignette framed by hairline rules */}
+        <div className={styles.flagVignette} aria-hidden="true">
+          {sampleCountries.map((country) => (
             <FlagImage key={country.code} country={country} size="sm" />
           ))}
         </div>
 
         <p className={styles.footerNote}>
-          195 Sovereign Countries · Batches of 10 · Spaced Repetition · Local &amp; Private
+          195 Sovereign Countries · Seven Continents · Spaced Practice
         </p>
       </div>
     </main>

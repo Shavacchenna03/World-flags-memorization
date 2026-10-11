@@ -17,7 +17,6 @@ export default function LearnDashboardPage() {
   const totalCountryCount = getCountryCount();
 
   useEffect(() => {
-    // Read live local progress on mount
     setProgress(loadProgress());
   }, []);
 
@@ -31,7 +30,6 @@ export default function LearnDashboardPage() {
         practiceAccuracy: 0,
       };
 
-  // Determine next continue action
   const lastSession = progress?.lastSession;
   const continueContinent: Continent = lastSession?.continent || 'Africa';
   const continueBatchIndex = lastSession ? lastSession.batchIndex : 0;
@@ -39,84 +37,74 @@ export default function LearnDashboardPage() {
 
   return (
     <div className="container">
-      <div className={styles.dashboardContainer}>
-        <div className={styles.headerRow}>
+      <div className={styles.workspaceContainer}>
+        {/* Workspace Header */}
+        <header className={styles.workspaceHeader}>
           <h1 className={styles.title}>Study Workspace</h1>
-          <p className={styles.subtitle}>
-            Sequential continent batches, active recall practice, and spaced retention.
-          </p>
-        </div>
 
-        {/* Continue Learning Action Card */}
-        <div className={styles.continueCard}>
-          <div className={styles.continueInfo}>
-            <span className={styles.continueBadge}>
-              {isBrandNew ? 'First Step' : 'Resume Learning'}
+          {/* Understated Inline Progress Strip */}
+          <div className={styles.progressStrip}>
+            <span className={styles.progressItem}>
+              <strong className={styles.progressValue}>{stats.introducedCount}</strong> of{' '}
+              {stats.totalCountries} Flags Introduced
             </span>
-            <h2 className={styles.continueTitle}>
+            <span className={styles.progressDivider} aria-hidden="true">·</span>
+            <span className={styles.progressItem}>
+              <strong className={styles.progressValue}>{stats.completedBatchCount}</strong> Batches Completed
+            </span>
+            <span className={styles.progressDivider} aria-hidden="true">·</span>
+            <span className={styles.progressItem}>
+              {stats.practiceAttemptsCount > 0 ? (
+                <>
+                  <strong className={styles.progressValue}>{stats.practiceAccuracy}%</strong> Recall Accuracy
+                </>
+              ) : (
+                <span style={{ color: 'var(--text-muted)' }}>No Practice Records Yet</span>
+              )}
+            </span>
+          </div>
+        </header>
+
+        {/* Focused Resume Action */}
+        <section className={styles.resumeSection} aria-label="Current Learning Session">
+          <div className={styles.resumeInfo}>
+            <span className={styles.resumeLabel}>
+              {isBrandNew ? 'First Lesson' : 'Current Lesson'}
+            </span>
+            <h2 className={styles.resumeHeading}>
               {continueContinent} · Batch {continueBatchIndex + 1}
             </h2>
-            <p className={styles.continueDesc}>
+            <p className={styles.resumeDescription}>
               {isBrandNew
-                ? 'Begin your study journey with the first 10 sovereign country flags in Africa.'
-                : `Pick up where you left off in ${continueContinent}.`}
+                ? 'Begin your study with the first 10 sovereign country flags in Africa.'
+                : `Resume studying the 10 flags in ${continueContinent} Batch ${continueBatchIndex + 1}.`}
             </p>
           </div>
 
           <Link
             href={`/learn/study/${encodeURIComponent(continueContinent)}/${continueBatchIndex}`}
-            className={styles.continueBtn}
+            className={styles.resumeBtn}
           >
-            <span>{isBrandNew ? 'Begin Batch 1' : 'Continue Batch'}</span>
+            <span>{isBrandNew ? 'Begin Batch 1' : 'Resume Batch'}</span>
             <span aria-hidden="true">→</span>
           </Link>
-        </div>
+        </section>
 
-        {/* Real Progress Stats Grid */}
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <div className={styles.statValue}>
-              {stats.introducedCount} / {stats.totalCountries}
-            </div>
-            <div className={styles.statLabel}>Flags Introduced</div>
-            <div className={styles.statSubtext}>
-              {Math.round((stats.introducedCount / stats.totalCountries) * 100)}% of world covered
-            </div>
-          </div>
-
-          <div className={styles.statCard}>
-            <div className={styles.statValue}>{stats.completedBatchCount}</div>
-            <div className={styles.statLabel}>Batches Completed</div>
-            <div className={styles.statSubtext}>Across all continents</div>
-          </div>
-
-          <div className={styles.statCard}>
-            <div className={styles.statValue}>
-              {stats.practiceAttemptsCount > 0 ? `${stats.practiceAccuracy}%` : '—'}
-            </div>
-            <div className={styles.statLabel}>Practice Accuracy</div>
-            <div className={styles.statSubtext}>
-              {stats.practiceAttemptsCount > 0
-                ? `${stats.practiceAttemptsCount} attempts recorded`
-                : 'Complete a practice session to measure'}
-            </div>
-          </div>
-        </div>
-
-        {/* Continents Grid */}
-        <section className={styles.section} id="continents">
+        {/* Continents Progression: Structured Scannable Rows */}
+        <section className={styles.section} aria-labelledby="continents-heading">
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Seven-Continent Progression</h2>
-            <span className={styles.sectionDesc}>10 countries per batch</span>
+            <h2 id="continents-heading" className={styles.sectionTitle}>
+              Continents Curriculum
+            </h2>
+            <span className={styles.sectionNote}>Batches of 10</span>
           </div>
 
-          <div className={styles.continentsGrid}>
+          <div className={styles.continentList}>
             {ALL_CONTINENTS.map((continent) => {
               const countries = getCountriesByContinent(continent);
               const batchCount = getContinentBatchCount(continent);
               const isAntarctica = continent === 'Antarctica';
 
-              // Calculate how many countries in this continent are introduced
               const introducedInContinent = countries.filter((c) =>
                 progress?.introducedCountryCodes.includes(c.code)
               ).length;
@@ -128,17 +116,16 @@ export default function LearnDashboardPage() {
                 return (
                   <div
                     key={continent}
-                    className={`${styles.continentCard} ${styles.continentCardDisabled}`}
+                    className={`${styles.continentRow} ${styles.continentRowDisabled}`}
                   >
-                    <div className={styles.cardTop}>
-                      <h3 className={styles.continentName}>{continent}</h3>
-                      <span className={styles.batchBadge}>0 Batches</span>
+                    <div className={styles.continentLeft}>
+                      <span className={styles.continentName}>{continent}</span>
+                      <span className={styles.continentMeta}>
+                        0 sovereign countries · Excluded under international treaty
+                      </span>
                     </div>
-                    <p className={styles.continentMeta}>
-                      0 sovereign countries. Governed by the Antarctic Treaty System; excluded from national flag learning.
-                    </p>
-                    <div className={styles.cardFooter}>
-                      <span>No learning batches</span>
+                    <div className={styles.continentRight}>
+                      <span className={styles.continentProgress}>No Lessons</span>
                     </div>
                   </div>
                 );
@@ -148,27 +135,26 @@ export default function LearnDashboardPage() {
                 <Link
                   key={continent}
                   href={`/learn/continents/${encodeURIComponent(continent)}`}
-                  className={styles.continentCard}
+                  className={styles.continentRow}
                 >
-                  <div>
-                    <div className={styles.cardTop}>
-                      <h3 className={styles.continentName}>{continent}</h3>
-                      <span className={styles.batchBadge}>
-                        {batchCount} {batchCount === 1 ? 'Batch' : 'Batches'}
-                      </span>
-                    </div>
-                    <p className={styles.continentMeta}>
-                      {countries.length} sovereign states · {introducedInContinent} introduced
-                    </p>
+                  <div className={styles.continentLeft}>
+                    <span className={styles.continentName}>{continent}</span>
+                    <span className={styles.continentMeta}>
+                      {countries.length} sovereign states · {batchCount} {batchCount === 1 ? 'batch' : 'batches'}
+                    </span>
                   </div>
 
-                  <div className={styles.cardFooter}>
-                    <span>
+                  <div className={styles.continentRight}>
+                    <span className={styles.continentProgress}>
                       {completedBatchesForContinent > 0
                         ? `${completedBatchesForContinent} of ${batchCount} batches completed`
+                        : introducedInContinent > 0
+                        ? `${introducedInContinent} flags introduced`
                         : 'Not started'}
                     </span>
-                    <span className={styles.startLink}>Open Continent →</span>
+                    <span className={styles.actionIndicator} aria-hidden="true">
+                      Open →
+                    </span>
                   </div>
                 </Link>
               );
@@ -176,19 +162,15 @@ export default function LearnDashboardPage() {
           </div>
         </section>
 
-        {/* Due Reviews Status */}
-        <section className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Retention &amp; Scheduled Reviews</h2>
-          </div>
-
-          <div className={styles.reviewBox}>
-            <span className={styles.reviewIcon} aria-hidden="true">⏱️</span>
-            <div className={styles.reviewText}>
-              <h4>Review queue clear (0 due)</h4>
+        {/* Retention Status Note */}
+        <section className={styles.section} aria-label="Review Queue">
+          <div className={styles.reviewNotice}>
+            <span className={styles.reviewNoticeGlyph} aria-hidden="true">✦</span>
+            <div className={styles.reviewNoticeText}>
+              <h4>Spaced Repetition &amp; Maintenance Reviews</h4>
               <p>
-                The adaptive spaced-repetition scheduler is scheduled for Phase 3.
-                Any countries you introduce and practice now will be queued for multi-day retention checks once active.
+                As countries are studied and practiced, multi-day retention intervals will be scheduled here in Phase 3.
+                Continents and batches remain open for self-directed practice at any time.
               </p>
             </div>
           </div>

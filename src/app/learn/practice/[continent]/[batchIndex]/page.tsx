@@ -179,7 +179,7 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
     return (
       <div className={styles.practiceContainer}>
         <div className={styles.summaryCard}>
-          <div className={styles.summaryIcon} aria-hidden="true">🏆</div>
+          <div className={styles.summaryGlyph} aria-hidden="true">✦</div>
           <h1 className={styles.summaryTitle}>Practice Session Complete</h1>
           <p className={styles.summarySubtitle}>
             Completed review of {rawContinent} · Batch {batch.batchNumber} ({batchCountries.length} flags)

@@ -1,10 +1,35 @@
 # World Flags — Project Workflow & File Architecture
 
-> **Purpose:** Detailed end-to-end guide of the application's runtime flow, directory structure, module responsibilities, and call graph. Updated after each execution.
+> **Purpose:** Detailed end-to-end guide of the application's runtime flow, directory structure, module responsibilities, design tokens, and call graph. Updated after each prompt execution.
 
 ---
 
-## 1. High-Level Application Lifecycle & Navigation Flow
+## 1. Design System & Visual Philosophy
+
+The visual design system is an **understated, editorial personal study workspace** designed for sustained focus:
+- **Palette:**
+  - Main background: `#171814` (warm deep charcoal)
+  - Secondary background: `#1E1F19` (soft warm charcoal)
+  - Elevated surfaces: `#25261F` (warm charcoal stone)
+  - Primary text: `#EAE6DC` (warm linen off-white)
+  - Secondary text: `#AAA99D` (muted warm stone)
+  - Muted text: `#828276` (neutral olive-slate)
+  - Dividers: `#38392F` (hairline subtle rule)
+  - Primary accent: `#A6A77A` (muted olive)
+  - Secondary accent: `#C5A574` (subdued warm amber)
+  - Success state: `#7DA383` (muted sage)
+  - Error state: `#C26762` (muted terracotta)
+- **Typography:**
+  - Display & Headings: `Newsreader` / `Charter` / `Georgia` (literary, warm serif)
+  - Interface & Body: `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto` (high legibility)
+  - Numerical & Codes: `ui-monospace`, `Cascadia Code` (ISO codes, batch numbers)
+- **Layout:**
+  - Replaced repetitive boxed cards with whitespace, hairline dividers, and structured rows.
+  - Eliminated glowing borders, electric-blue buttons, and colorful pill badges.
+
+---
+
+## 2. High-Level Application Lifecycle & Navigation Flow
 
 ```text
 [Landing Page (/)]
@@ -12,9 +37,9 @@
        ▼ (User clicks "Start Learning")
 [Study Workspace Dashboard (/learn)]
        │
-       ├───► [Continue Learning Card] ──► Direct link to resume active/next batch
+       ├───► [Current Lesson Strip] ─────► Direct action to resume active/next batch
        │
-       ├───► [Seven-Continent Overview]
+       ├───► [Continents Curriculum]
        │            │ (User selects a populated continent)
        │            ▼
        │     [/learn/continents/[continent]] (Sequential batches of 10)
@@ -33,19 +58,20 @@
 
 ---
 
-## 2. File Directory & Caller-Callee Hierarchy Map
+## 3. File Directory & Caller-Callee Hierarchy Map
 
 | File Path | Role & Purpose | Imported / Called By | Why It Is Called |
 | :--- | :--- | :--- | :--- |
-| `src/app/page.tsx` | Minimalist dark landing page. Hero message and entry CTA. | Next.js root router (`/`) | Acts as the focused entrance into the personal learning tool. |
-| `src/app/layout.tsx` | App shell, viewport, metadata, and common header. | Next.js App Router | Wraps all pages with dark theme styles and top navigation. |
-| `src/app/learn/page.tsx` | Study workspace dashboard with stats and continent cards. | Next.js route (`/learn`) | Primary hub showing real progress, resume action, and continents. |
-| `src/app/learn/continents/[continent]/page.tsx` | Continent learning sequence breaking continent into batches of 10. | Next.js dynamic route | Shows list of sequential batches, completion status, and actions. |
-| `src/app/learn/study/[continent]/[batchIndex]/page.tsx` | Focused 10-country study screen with arrow-key navigation. | Next.js dynamic route | Presents flags & names to establish visual relationship; marks introduced. |
-| `src/app/learn/practice/[continent]/[batchIndex]/page.tsx` | Interactive practice session (MCQ, Typed Recall, Flashcards, Summary). | Next.js dynamic route | Tests active recall, records attempts, calculates session accuracy. |
-| `src/app/learn/explorer/page.tsx` | Dedicated full-page flag registry explorer. | Next.js route (`/learn/explorer`) | Provides searchable reference for all 195 sovereign country flags. |
-| `src/components/Header.tsx` | Dark navigation bar with workspace links. | `src/app/layout.tsx` | Provides persistent top navigation across the learning app. |
-| `src/components/FlagImage.tsx` | Reusable, accessible flag component preserving aspect ratios. | Pages, cards, study, and practice screens | Renders local SVGs via `object-fit: contain` without distortion or remote calls. |
+| `src/app/globals.css` | Global editorial theme tokens, typography, and focus states. | Next.js root layout | Establishes the warm charcoal, muted olive, and serif tokens. |
+| `src/app/page.tsx` | Minimalist literary landing page. | Next.js root router (`/`) | Uncluttered, quiet entrance to the study workspace. |
+| `src/app/layout.tsx` | Root shell with metadata and Header. | Next.js App Router | Wraps all views in the dark workspace theme and navigation. |
+| `src/app/learn/page.tsx` | Main study dashboard. | Next.js route (`/learn`) | Houses progress metrics, resume action, and continents curriculum. |
+| `src/app/learn/continents/[continent]/page.tsx` | Continent learning sequence with sequential batches. | Next.js dynamic route | Shows batch sequence, country previews, and study/practice actions. |
+| `src/app/learn/study/[continent]/[batchIndex]/page.tsx` | Focused flag study screen with arrow navigation. | Next.js dynamic route | Presents flags & names to establish visual relationships; marks introduced. |
+| `src/app/learn/practice/[continent]/[batchIndex]/page.tsx` | Active recall practice (MCQ, Typed Recall, Flashcards, Summary). | Next.js dynamic route | Evaluates recall, logs attempts to storage, presents session summary. |
+| `src/app/learn/explorer/page.tsx` | Dedicated full-page flag registry explorer. | Next.js route (`/learn/explorer`) | Provides searchable reference for all 195 sovereign countries. |
+| `src/components/Header.tsx` | Understated navigation bar with hairline divider. | `src/app/layout.tsx` | Quiet top navigation without distracting highlights. |
+| `src/components/FlagImage.tsx` | Reusable flag component preserving native aspect ratios. | Pages, cards, study, and practice screens | Renders local SVGs via `object-fit: contain` without distortion or remote calls. |
 | `src/components/FlagExplorer.tsx` | Search and continent-filter country table. | `src/app/learn/explorer/page.tsx` | Interactive client search and filter for 195 flags. |
 | `src/lib/countries.ts` | Static dataset loader, validator, and continent resolver. | `batches.ts`, pages, tests | Loads `data/countries.json` once, validates integrity, indexes by code. |
 | `src/lib/batches.ts` | Deterministic chunking into sequential batches of 10. | Continent, study, and practice pages, tests | Divides countries into stable batches of 10 (or remainder for final batch). |
@@ -55,7 +81,7 @@
 
 ---
 
-## 3. Detailed Data Lifecycles
+## 4. Detailed Data Lifecycles
 
 ### A. Country Registry Lifecycle
 1. `data/countries.json` is loaded statically by `src/lib/countries.ts`.
