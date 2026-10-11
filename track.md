@@ -15,10 +15,15 @@
 │  [Background Layer: MovingFlagWall.tsx]                                      │
 │    • 9 Asynchronous vertical columns covering viewport                      │
 │    • Real 195 local country SVGs (authentic aspect ratios)                   │
-│    • GPU CSS @keyframes scrollDown (-50% -> 0% continuous seamless loop)     │
-│    • Varied speeds (36s - 58s) & staggered offsets                           │
+│    • GPU CSS @keyframes scrollDown (-66.6% -> -33.3% continuous 3x loop)     │
+│    • Varied speeds (18s - 27s) & staggered offsets                           │
 │    • Central radial vignette & top/bottom edge gradients                     │
 │    • prefers-reduced-motion fallback & aria-hidden="true"                    │
+│                                                                              │
+│  [Header Navigation]                                                         │
+│    • Brand & Scope ("195 Nations")                                           │
+│    • Unauthenticated: [Sign In] (/login) | [Workspace →] (/learn)            │
+│    • Authenticated: [● Display Name] | [Log Out]                             │
 │                                                                              │
 │  [Foreground Hero Layer]                                                     │
 │    • Eyebrow: "Sovereign State Flag Memorization"                            │
@@ -27,48 +32,29 @@
 │    • Primary Action: [Start Learning] ──────────────────────┐                │
 └─────────────────────────────────────────────────────────────┼────────────────┘
                                                               │
-                                                              ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                 2. REDESIGNED LEARNING DASHBOARD (/learn)                    │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  PRIORITY 1: NEXT LESSON CARD (Derived dynamically from progress engine)     │
-│    • Badge: "First Lesson" / "Next Lesson" / "Resume Lesson"                 │
-│    • Continent & Batch (e.g. "Africa · Batch 1", 10 flags)                   │
-│    • Description & Direct Action CTA: [Start First Lesson →]                 │
-│                                                                              │
-│  PRIORITY 2: COMPACT LEARNING ANALYTICS (Real data only, no fake stats)      │
-│    ┌──────────────────────┬──────────────────────┬────────────────────────┐  │
-│    │ Flags Introduced     │ Batches Completed    │ Recall Accuracy        │  │
-│    │ X / 195              │ Y / 23               │ Z% (or empty state)    │  │
-│    │ [====        ] 45%   │ [===         ] 30%   │ [========    ] 85%     │  │
-│    └──────────────────────┴──────────────────────┴────────────────────────┘  │
-│                                                                              │
-│  PRIORITY 3: CONTINENTS CURRICULUM (Structured scannable rows)               │
-│    • Africa (54 sovereign states · 6 batches)           [Open →]             │
-│    • Asia (47 sovereign states · 5 batches)             [Open →]             │
-│    • Europe (44 sovereign states · 5 batches)           [Open →]             │
-│    • North America (23 sovereign states · 3 batches)    [Open →]             │
-│    • South America (12 sovereign states · 2 batches)    [Open →]             │
-│    • Oceania (15 sovereign states · 2 batches)          [Open →]             │
-│    • Antarctica (0 sovereign states · International Treaty Exclusion)        │
-│                                                                              │
-│  PRIORITY 4: SECONDARY STUDY TOOLS                                           │
-│    • Spaced Repetition status note                                           │
-│    • [Explore All 195 Flags →] (/learn/explorer)                             │
-└──────────────────────────────────────┬───────────────────────────────────────┘
-                                       │
-                                       ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│             3. CENTRALIZED THEME SYSTEM (src/lib/theme.ts)                   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  • Single Source of Truth: ThemeConfig interface & semantic tokens          │
-│  • Named Palettes:                                                           │
-│      1. 'editorial-warm' (Active Default: Charcoal, Ivory, Muted Olive)      │
-│      2. 'nordic-frost' (Obsidian slate, ice-steel accent, silver-white)      │
-│      3. 'monastic-terracotta' (Earth-black, terracotta, parchment)           │
-│  • Dynamic Generation: generateThemeCssVariables()                           │
-│  • Injected into root <head> via src/app/layout.tsx                          │
-└──────────────────────────────────────────────────────────────────────────────┘
+               ┌──────────────────────────────────────────────┴──────────────────────────────┐
+               ▼                                                                             ▼
+┌─────────────────────────────────────────────┐  ┌─────────────────────────────────────────────────────────────┐
+│       AUTHENTICATION SYSTEM (Phase 1)       │  │             STUDY WORKSPACE DASHBOARD (/learn)              │
+├─────────────────────────────────────────────┤  ├─────────────────────────────────────────────────────────────┤
+│  [Routes & Session Lifecycle]               │  │  PRIORITY 1: NEXT LESSON CARD                               │
+│    • /login: Email & password sign in       │  │    • Badge: "First Lesson" / "Next Lesson" / "Resume"       │
+│    • /signup: Email, pass, display name     │  │    • Continent & Batch (e.g. "Africa · Batch 1", 10 flags)  │
+│    • /forgot-password: Recovery request     │  │    • Direct Action CTA: [Start First Lesson →]              │
+│    • /reset-password: Pass update           │  │                                                             │
+│    • /auth/callback: Code exchange handler  │  │  PRIORITY 2: COMPACT LEARNING ANALYTICS                     │
+│                                             │  │    • Flags Introduced: X / 195                              │
+│  [Next.js 15 App Router Architecture]       │  │    • Batches Completed: Y / 23                              │
+│    • src/middleware.ts (session refresh)    │  │    • Recall Accuracy: Z% (Objective MCQ & Typed only)       │
+│    • src/lib/supabase/client.ts (browser)   │  │                                                             │
+│    • src/lib/supabase/server.ts (async cookies)│  PRIORITY 3: CONTINENTS CURRICULUM (Scannable rows)          │
+│    • src/lib/supabase/redirect.ts (safety)  │  │    • 6 inhabited continents (Batches of 10)                 │
+│    • src/lib/supabase/validation.ts (rules) │  │    • Antarctica (0 sovereign states · Honest treaty state)  │
+│                                             │  │                                                             │
+│  [Dual Mode Persistence]                    │  │  PRIORITY 4: SECONDARY STUDY TOOLS                          │
+│    • Guest: Browser local storage (v1)      │  │    • Spaced Repetition status notice                        │
+│    • Authenticated: Session-aware Header    │  │    • [Explore All 195 Flags →] (/learn/explorer)            │
+└─────────────────────────────────────────────┘  └─────────────────────────────────────────────────────────────┘
 ```
 
 <details>
@@ -80,6 +66,15 @@ flowchart TD
         WALL["MovingFlagWall (9 Independent CSS Columns)"]
         HERO["Hero: 'Know every flag. Remember every country.'"]
         CTA["CTA: 'Start Learning'"]
+    end
+
+    subgraph AuthSystem ["Authentication (Phase 1)"]
+        LOGIN["/login (Sign In)"]
+        SIGNUP["/signup (Create Account with Display Name)"]
+        FORGOT["/forgot-password (Recovery Request)"]
+        RESET["/reset-password (Password Update)"]
+        CALLBACK["/auth/callback (PKCE Code Exchange)"]
+        MIDDLEWARE["src/middleware.ts (Session Refresh & Route Protection)"]
     end
 
     subgraph Dashboard ["Learning Dashboard (/learn)"]
@@ -97,9 +92,12 @@ flowchart TD
     end
 
     CTA -->|Navigates to| Dashboard
+    LandingPage -->|Sign In / Out| AuthSystem
+    AuthSystem -->|Session Established| Dashboard
     CONF --> PALETTES --> GEN --> HEAD
     HEAD -->|Styles| LandingPage
     HEAD -->|Styles| Dashboard
+    HEAD -->|Styles| AuthSystem
 ```
 
 </details>
@@ -127,6 +125,29 @@ flowchart TD
 ---
 
 ## 3. Chronological Change Log
+
+### Phase 1: Supabase Authentication Implementation
+- **Dependencies Installed:**
+  - `@supabase/ssr` (v0.12.7) and `@supabase/supabase-js` (v2.117.3).
+- **Architecture & Client Setup:**
+  - `src/lib/supabase/config.ts`: Centralized environment variable resolver for `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (with `NEXT_PUBLIC_SUPABASE_ANON_KEY` alias).
+  - `src/lib/supabase/client.ts`: Singleton browser client with SSR cookie handling.
+  - `src/lib/supabase/server.ts`: Next.js 15 server client with asynchronous `cookies()` support.
+  - `src/lib/supabase/middleware.ts` & `src/middleware.ts`: Request lifecycle session refresher and route guard.
+  - `src/lib/supabase/redirect.ts`: Open-redirect sanitization utility restricting destinations to safe internal relative paths.
+  - `src/lib/supabase/validation.ts`: Form validators for email syntax, password minimums, and display name constraints.
+- **Authentication Routes (`src/app/`):**
+  - `/login`: Email + password authentication with setup alerts and guest access.
+  - `/signup`: Registration collecting email, password, and separate display name (stored in `options.data.display_name`).
+  - `/forgot-password`: Recovery request form with user-enumeration protection.
+  - `/reset-password`: Password update form with recovery session verification.
+  - `/auth/callback`: Next.js route handler exchanging recovery/confirmation code for cookies.
+- **Header Component Update (`src/components/Header.tsx`):**
+  - Unobtrusive "Sign In" link when unauthenticated.
+  - User badge displaying `display_name` with green dot and "Log Out" action when authenticated.
+- **Testing & Verification:**
+  - Created `tests/auth.test.ts` (11 unit tests covering config validation, redirect sanitization, and form rules).
+  - All 38 tests passing; `npx tsc --noEmit` 0 errors; `npm run build` static generation (11/11 routes) succeeded.
 
 ### Prompt 5: Fix and Refine the Animated Flag Background
 - **Root Cause Fix for Slow Motion & Obscured Flags:**

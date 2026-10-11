@@ -26,18 +26,33 @@ The visual design system is a centralized, easily configurable theme architectur
 
 ---
 
-## 2. High-Level Application Lifecycle & Navigation Flow
+## 2. Authentication & Session Architecture (Phase 1)
+
+### A. Core Authentication Principles
+- **Library Stack:** `@supabase/ssr` (v0.12.7) + `@supabase/supabase-js` (v2.117.3).
+- **Identity Provider:** Supabase Auth with Email + Password.
+- **User Metadata:** Separate display name captured at registration and stored in `options.data.display_name`.
+- **Session Mechanism:** Secure HTTP-only cookies managed via Next.js 15 App Router request lifecycle.
+- **Open Redirect Protection:** Centralized redirect sanitizer in `src/lib/supabase/redirect.ts`.
+
+### B. End-to-End Application Lifecycle & Route Map
 
 ```text
 [Landing Page (/)]
-  ├── Background: Continuous Asynchronous Moving Flag Wall (MovingFlagWall.tsx)
-  │     ├── 9 columns of local SVG flags
-  │     ├── GPU CSS keyframe continuous downward scrolling
-  │     ├── Vignette & radial gradient for high foreground readability
-  │     └── Reduced-motion accessibility fallback
-  │
-  ▼ (User clicks "Start Learning")
+  ├── Header: Brand, Navigation, Auth status ("Sign In" / Display Name + "Log Out")
+  ├── Background: Asynchronous Continuous Moving Flag Wall (MovingFlagWall.tsx)
+  └── CTA: "Start Learning →" (links to /learn)
+
+[Authentication Routes]
+  ├── /login ───────────────► Email + password sign in; link to signup & password recovery
+  ├── /signup ──────────────► Email + password + display name; handles verification link state
+  ├── /forgot-password ─────► Requests recovery link; protected against user enumeration
+  ├── /reset-password ──────► Secure password update (requires active recovery session or code)
+  └── /auth/callback ───────► Next.js route handler exchanging recovery/verification code for cookies
+
 [Study Workspace Dashboard (/learn)]
+  ├── Guest Mode: Retains local-storage progress persistence as default
+  ├── Authenticated Mode: Displays user display name in header; session maintained across reloads
   │
   ├── 1. PRIMARY: Next Lesson Card (Derived dynamically via getNextLessonRecommendation)
   │     ├── Shows next uncompleted batch (e.g. Africa · Batch 1) or active session resume
@@ -68,19 +83,26 @@ The visual design system is a centralized, easily configurable theme architectur
 
 | File Path | Role & Purpose | Imported / Called By | Why It Is Called |
 | :--- | :--- | :--- | :--- |
+| `src/middleware.ts` | Next.js Edge Middleware for session lifecycle and route protection. | Next.js runtime | Intercepts requests, refreshes auth tokens, and protects auth routes. |
+| `src/lib/supabase/config.ts` | Centralized Supabase environment configuration and validation. | Auth clients, middleware, UI | Reads `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. |
+| `src/lib/supabase/client.ts` | Singleton browser Supabase client using `@supabase/ssr`. | Client components (`Header`, `/login`, etc.) | Executes browser-side authentication calls. |
+| `src/lib/supabase/server.ts` | Server-side Supabase client for Next.js 15 App Router. | Server components, route handlers | Manages server-side cookie sessions. |
+| `src/lib/supabase/middleware.ts` | Session refresher and route protection logic. | `src/middleware.ts` | Refreshes session tokens and redirects authenticated users from guest forms. |
+| `src/lib/supabase/redirect.ts` | Open redirect vulnerability sanitizer. | Route handlers, auth pages | Rejects external URLs and protocol-relative links (`//evil.com`). |
+| `src/lib/supabase/validation.ts` | Email, password, and display name validation rules. | Auth pages, tests | Enforces client validation before submitting to Supabase. |
+| `src/app/auth/callback/route.ts` | Supabase Auth PKCE / confirmation code exchange handler. | Supabase email link redirects | Exchanges `code` for session cookies and redirects to destination. |
+| `src/app/login/page.tsx` | Sign-in page with credential validation and setup alert. | Route (`/login`) | Authenticates existing users with email and password. |
+| `src/app/signup/page.tsx` | Account registration page with display name metadata. | Route (`/signup`) | Registers new accounts and handles email verification states. |
+| `src/app/forgot-password/page.tsx` | Password recovery request form with enumeration safety. | Route (`/forgot-password`) | Triggers Supabase password reset email. |
+| `src/app/reset-password/page.tsx` | Password reset form with session verification. | Route (`/reset-password`) | Allows user to set a new password during recovery. |
+| `src/components/Header.tsx` | Navigation bar with dynamic auth state, user badge, and logout. | `src/app/layout.tsx` | Reflects sign-in status and provides session termination. |
 | `src/lib/theme.ts` | Single source of truth for semantic tokens, themes, and CSS generation. | `src/app/layout.tsx`, tests | Exposes `getActiveTheme()`, `generateThemeCssVariables()`, and named palettes. |
 | `src/app/layout.tsx` | Root shell injecting dynamic theme `:root` CSS variables and Header. | Next.js App Router | Wraps entire app in active theme variables and semantic shell. |
-| `src/app/globals.css` | Fallback styles, reset, container utilities, and accessibility rules. | Root layout | Enforces dark mode base and layout bounds. |
 | `src/components/MovingFlagWall.tsx` | Asynchronous continuous moving flag columns. | `src/app/page.tsx` | Renders 9 independent continuous CSS-scrolling columns of flags behind hero. |
-| `src/components/MovingFlagWall.module.css` | GPU-accelerated `@keyframes scrollDown` and vignette styling. | `MovingFlagWall.tsx` | Powers seamless looping and contrast overlays. |
-| `src/app/page.tsx` | Cinematic landing page with flag background & hero CTA. | Next.js root router (`/`) | Editorial entrance to learning application. |
-| `src/app/learn/page.tsx` | Redesigned learning dashboard. | Next.js route (`/learn`) | Houses Next Lesson card, Compact Analytics, Curriculum rows, and Secondary Utilities. |
+| `src/app/learn/page.tsx` | Redesigned learning dashboard. | Route (`/learn`) | Houses Next Lesson card, Compact Analytics, Curriculum rows, and Secondary Utilities. |
 | `src/lib/progress.ts` | Progress persistence & dynamic next lesson engine. | Learn pages, study, practice, tests | Provides `getNextLessonRecommendation()`, `getProgressStats()`, storage schema. |
 | `src/lib/batches.ts` | Deterministic batch generation (batches of 10). | Learn pages, study, practice, tests | Splits continent countries into stable chunks of 10. |
 | `src/lib/countries.ts` | Static dataset loader, validator, and continent indexer. | Batches, moving flag wall, explorer, tests | Loads 195 sovereign nation records without runtime API calls. |
-| `src/components/Header.tsx` | Understated brand navigation bar. | `src/app/layout.tsx` | Provides quiet navigation (Dashboard, Explorer, Exit). |
-| `src/components/FlagImage.tsx` | Responsive flag component with preserved aspect ratio. | Components, study, practice | Renders local SVGs via `object-fit: contain`. |
-| `src/components/FlagExplorer.tsx` | Searchable table for all 195 sovereign flags. | `src/app/learn/explorer/page.tsx` | Allows country filtering and search. |
 
 ---
 
@@ -114,18 +136,3 @@ The visual design system is a centralized, easily configurable theme architectur
 7. **Accessibility (`prefers-reduced-motion`):**
    - `@media (prefers-reduced-motion: reduce)` halts animation (`animation: none`) while preserving a static backdrop.
    - Tagged with `aria-hidden="true"` so screen readers are not burdened.
-
----
-
-## 5. How to Change or Add a UI Theme
-
-To switch the active theme:
-1. Open `src/lib/theme.ts`.
-2. Locate `export const ACTIVE_THEME_NAME: keyof typeof THEME_PALETTES = 'editorial-warm';`
-3. Change `'editorial-warm'` to any registered palette:
-   - `'nordic-frost'`
-   - `'monastic-terracotta'`
-4. To create a new theme:
-   - Add a new entry to `THEME_PALETTES` in `src/lib/theme.ts` adhering to the `ThemeConfig` interface.
-   - Set `ACTIVE_THEME_NAME` to your new palette name.
-   - All components automatically adapt without touching CSS or page components.
