@@ -99,7 +99,8 @@ function SignupForm() {
       }
 
       // Immediate session created (email confirmation disabled in Supabase project settings)
-      router.push(safeRedirect);
+      const target = safeRedirect.includes('?') ? `${safeRedirect}&onboarding=1` : `${safeRedirect}?onboarding=1`;
+      router.push(target);
       router.refresh();
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'An unexpected error occurred';

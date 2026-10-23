@@ -19,25 +19,45 @@
   height: 100%;
   padding: 0 clamp(0.75rem, 1.5vw, 2rem);
   box-sizing: border-box;
-  opacity: 0.82;
 }
 
+/* 1. Column Positioning Element: Exclusively handles placement, width, and column opacity */
 .column {
   display: flex;
   flex-direction: column;
   width: clamp(135px, 9.2vw, 175px);
   flex-shrink: 0;
+  opacity: var(--col-opacity, 0.6);
+}
+
+/* 2. Animated Track: Exclusively owns the translateY transform animation */
+.track {
+  display: flex;
+  flex-direction: column;
   will-change: transform;
 }
 
-.columnInner {
+/* Continuous Linear Vertical Motion */
+.trackUp {
+  animation: scrollUp var(--col-duration, 40s) linear infinite;
+  animation-delay: var(--col-delay, 0s);
+}
+
+.trackDown {
+  animation: scrollDown var(--col-duration, 40s) linear infinite;
+  animation-delay: var(--col-delay, 0s);
+}
+
+/* 3. Sequence: Holds one complete sequence with exact padding-bottom matching gap */
+.sequence {
   display: flex;
   flex-direction: column;
   gap: clamp(1.25rem, 2vh, 1.75rem);
-  animation: scrollDown linear infinite;
-  will-change: transform;
+  padding-bottom: clamp(1.25rem, 2vh, 1.75rem);
+  flex-shrink: 0;
 }
 
+/* 4. Flag Item */
 .flagItem {
   display: flex;
   align-items: center;
@@ -58,63 +78,26 @@
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
 }
 
-/* Continuous Seamless Downward Motion (33.333% delta over 3 repeated cycles) */
-@keyframes scrollDown {
+/* 5. Keyframes: 50% translation equals EXACTLY one sequence height */
+@keyframes scrollUp {
   0% {
-    transform: translateY(-66.6666%);
+    transform: translateY(0%);
   }
   100% {
-    transform: translateY(-33.3333%);
+    transform: translateY(-50%);
   }
 }
 
-/* Asynchronous Speeds & Staggered Offsets per Column */
-.col0 .columnInner {
-  animation-duration: 20s;
-  animation-delay: -6s;
+@keyframes scrollDown {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
 }
 
-.col1 .columnInner {
-  animation-duration: 26s;
-  animation-delay: -16s;
-}
-
-.col2 .columnInner {
-  animation-duration: 18s;
-  animation-delay: -3s;
-}
-
-.col3 .columnInner {
-  animation-duration: 24s;
-  animation-delay: -19s;
-}
-
-.col4 .columnInner {
-  animation-duration: 21s;
-  animation-delay: -9s;
-}
-
-.col5 .columnInner {
-  animation-duration: 27s;
-  animation-delay: -22s;
-}
-
-.col6 .columnInner {
-  animation-duration: 19s;
-  animation-delay: -7s;
-}
-
-.col7 .columnInner {
-  animation-duration: 25s;
-  animation-delay: -14s;
-}
-
-.col8 .columnInner {
-  animation-duration: 22s;
-  animation-delay: -11s;
-}
-
-/* Central Radial Darkening (Soft ellipse leaving wide edges visible & flags clear) */
+/* Central Radial Darkening (Preserves editorial dark backdrop while keeping edges visible) */
 .centerRadialOverlay {
   position: absolute;
   inset: 0;
@@ -187,10 +170,11 @@
   }
 }
 
-/* Respect Reduced Motion */
+/* Respect User Preference for Reduced Motion (with override for manual verification) */
 @media (prefers-reduced-motion: reduce) {
-  .columnInner {
+  .wallContainer:not([data-force-motion="true"]) .trackUp,
+  .wallContainer:not([data-force-motion="true"]) .trackDown {
     animation: none !important;
-    transform: translateY(-50%) !important;
+    transform: translateY(-20%) !important;
   }
 }

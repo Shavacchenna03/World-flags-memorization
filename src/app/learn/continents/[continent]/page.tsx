@@ -8,6 +8,7 @@ import { Continent, ALL_CONTINENTS } from '../../../../types/country';
 import { getCountriesByContinent } from '../../../../lib/countries';
 import { getContinentBatches } from '../../../../lib/batches';
 import { loadProgress, UserProgress } from '../../../../lib/progress';
+import { loadPreferences, LearningPreferences } from '../../../../lib/preferences';
 import { FlagImage } from '../../../../components/FlagImage';
 
 interface ContinentPageProps {
@@ -25,13 +26,15 @@ export default function ContinentBatchesPage({ params }: ContinentPageProps) {
   }
 
   const [progress, setProgress] = useState<UserProgress | null>(null);
+  const [preferences, setPreferences] = useState<LearningPreferences>(() => loadPreferences());
 
   useEffect(() => {
     setProgress(loadProgress());
+    setPreferences(loadPreferences());
   }, []);
 
   const countries = getCountriesByContinent(rawContinent);
-  const batches = getContinentBatches(rawContinent);
+  const batches = getContinentBatches(rawContinent, preferences.lessonSize);
 
   return (
     <div className="container">
@@ -45,7 +48,7 @@ export default function ContinentBatchesPage({ params }: ContinentPageProps) {
         <header className={styles.header}>
           <h1 className={styles.title}>{rawContinent} Learning Path</h1>
           <p className={styles.meta}>
-            {countries.length} sovereign states partitioned into {batches.length} sequential study batches.
+            {countries.length} sovereign states partitioned into {batches.length} sequential study lessons ({preferences.lessonSize} flags per lesson).
           </p>
         </header>
 
@@ -56,11 +59,17 @@ export default function ContinentBatchesPage({ params }: ContinentPageProps) {
         ) : (
           <div className={styles.batchesList}>
             {batches.map((batch) => {
-              const isCompleted = progress?.completedBatches[rawContinent]?.includes(batch.batchIndex);
+              const isBatchFlagIntroduced =
+                batch.countries.length > 0 &&
+                batch.countries.every((c) => progress?.introducedCountryCodes.includes(c.code));
+
+              const isCompleted =
+                isBatchFlagIntroduced ||
+                progress?.completedBatches[rawContinent]?.includes(batch.batchIndex);
+
               const introducedInBatch = batch.countries.filter((c) =>
                 progress?.introducedCountryCodes.includes(c.code)
               ).length;
-              const isIntroduced = introducedInBatch === batch.countries.length;
 
               let statusLabel = 'Ready to Study';
               let statusClass = styles.statusNew;
@@ -68,7 +77,7 @@ export default function ContinentBatchesPage({ params }: ContinentPageProps) {
               if (isCompleted) {
                 statusLabel = 'Completed';
                 statusClass = styles.statusCompleted;
-              } else if (isIntroduced || introducedInBatch > 0) {
+              } else if (introducedInBatch > 0) {
                 statusLabel = `${introducedInBatch}/${batch.countries.length} Introduced`;
                 statusClass = styles.statusIntroduced;
               }
@@ -78,7 +87,7 @@ export default function ContinentBatchesPage({ params }: ContinentPageProps) {
                   <div className={styles.batchHeader}>
                     <div>
                       <h2 className={styles.batchTitle}>
-                        Batch {batch.batchNumber} · {batch.countries.length} Countries
+                        Lesson {batch.batchNumber} · {batch.countries.length} Countries
                       </h2>
                     </div>
                     <span className={`${styles.batchStatus} ${statusClass}`}>
@@ -97,18 +106,18 @@ export default function ContinentBatchesPage({ params }: ContinentPageProps) {
 
                   <div className={styles.actionsRow}>
                     <Link
-                      href={`/learn/study/${encodeURIComponent(rawContinent)}/${batch.batchIndex}`}
+                      href={`/learn/study/${encodeURIComponent(rawContinent)}/${batch.batchNumber}`}
                       className={styles.primaryBtn}
                     >
-                      <span>Study Batch</span>
+                      <span>Study Lesson</span>
                       <span aria-hidden="true">→</span>
                     </Link>
 
                     <Link
-                      href={`/learn/practice/${encodeURIComponent(rawContinent)}/${batch.batchIndex}`}
+                      href={`/learn/practice/${encodeURIComponent(rawContinent)}/${batch.batchNumber}`}
                       className={styles.secondaryBtn}
                     >
-                      <span>Practice Batch</span>
+                      <span>Practice Lesson</span>
                     </Link>
                   </div>
                 </article>

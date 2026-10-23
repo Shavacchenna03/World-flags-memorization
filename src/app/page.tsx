@@ -4,13 +4,26 @@ import styles from './page.module.css';
 import { getAllCountries } from '../lib/countries';
 import { MovingFlagWall } from '../components/MovingFlagWall';
 
-export default function LandingPage() {
+interface LandingPageProps {
+  searchParams?: Promise<{
+    animate?: string;
+    motion?: string;
+  }>;
+}
+
+export default async function LandingPage({ searchParams }: LandingPageProps) {
   const allCountries = getAllCountries();
+  const resolvedParams = searchParams ? await searchParams : undefined;
+  const forceMotion =
+    resolvedParams?.animate === '1' ||
+    resolvedParams?.animate === 'true' ||
+    resolvedParams?.motion === '1' ||
+    resolvedParams?.motion === 'true';
 
   return (
     <main className={styles.heroWrapper}>
       {/* Immersive asynchronous moving columns of real country flags */}
-      <MovingFlagWall countries={allCountries} />
+      <MovingFlagWall countries={allCountries} forceMotion={forceMotion} />
 
       {/* Foreground Hero Content */}
       <div className={styles.heroForeground}>

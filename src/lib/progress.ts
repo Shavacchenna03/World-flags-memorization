@@ -265,41 +265,53 @@ const ORDERED_CONTINENTS: readonly Continent[] = [
  */
 export function getNextLessonRecommendation(
   progress: UserProgress,
-  getBatchDetails: (continent: Continent, batchIndex: number) => { countryCount: number; totalBatches: number } | undefined
+  getBatchDetails: (
+    continent: Continent,
+    batchIndex: number
+  ) => { countryCount: number; totalBatches: number; countries?: readonly Country[] } | undefined
 ): NextLessonRecommendation {
   const last = progress.lastSession;
 
   // 1. Check if there is an unfinished active session to resume
   if (last && last.continent !== 'Antarctica') {
-    const isCompleted = progress.completedBatches[last.continent]?.includes(last.batchIndex);
-    if (!isCompleted) {
-      const details = getBatchDetails(last.continent, last.batchIndex);
-      if (details) {
-        return {
-          continent: last.continent,
-          batchIndex: last.batchIndex,
-          batchNumber: last.batchIndex + 1,
-          countryCount: details.countryCount,
-          totalBatchesInContinent: details.totalBatches,
-          actionType: 'resume',
-          badgeLabel: 'Resume Lesson',
-          buttonLabel: 'Resume Lesson →',
-          description: `Continue where you left off in ${last.continent} · Batch ${last.batchIndex + 1}.`,
-        };
-      }
+    const details = getBatchDetails(last.continent, last.batchIndex);
+    const isCompleted =
+      progress.completedBatches[last.continent]?.includes(last.batchIndex) ||
+      (Boolean(details?.countries) &&
+        details!.countries!.length > 0 &&
+        details!.countries!.every((c) => progress.introducedCountryCodes.includes(c.code)));
+
+    if (!isCompleted && details) {
+      return {
+        continent: last.continent,
+        batchIndex: last.batchIndex,
+        batchNumber: last.batchIndex + 1,
+        countryCount: details.countryCount,
+        totalBatchesInContinent: details.totalBatches,
+        actionType: 'resume',
+        badgeLabel: 'Resume Lesson',
+        buttonLabel: 'Resume Lesson →',
+        description: `Continue where you left off in ${last.continent} · Lesson ${last.batchIndex + 1}.`,
+      };
     }
   }
 
-  // 2. Scan curriculum in sequential continent order for the first uncompleted batch
+  // 2. Scan curriculum in sequential continent order for the first uncompleted lesson
   for (const continent of ORDERED_CONTINENTS) {
     const completedList = progress.completedBatches[continent] || [];
     let bIdx = 0;
 
     while (true) {
       const details = getBatchDetails(continent, bIdx);
-      if (!details) break; // no more batches in this continent
+      if (!details) break; // no more lessons in this continent
 
-      if (!completedList.includes(bIdx)) {
+      const isLessonFinished =
+        completedList.includes(bIdx) ||
+        (Boolean(details.countries) &&
+          details.countries!.length > 0 &&
+          details.countries!.every((c) => progress.introducedCountryCodes.includes(c.code)));
+
+      if (!isLessonFinished) {
         const isBrandNew =
           progress.introducedCountryCodes.length === 0 &&
           Object.keys(progress.completedBatches).length === 0;
@@ -314,8 +326,8 @@ export function getNextLessonRecommendation(
           badgeLabel: isBrandNew ? 'First Lesson' : 'Next Lesson',
           buttonLabel: isBrandNew ? 'Start First Lesson →' : 'Start Lesson →',
           description: isBrandNew
-            ? 'Begin your study journey with the first 10 sovereign country flags in Africa.'
-            : `Proceed to ${continent} · Batch ${bIdx + 1} (${details.countryCount} flags).`,
+            ? `Begin your study journey with the first ${details.countryCount} sovereign country flags in Africa.`
+            : `Continue with the next ${details.countryCount} flags in ${continent}.`,
         };
       }
 
@@ -323,7 +335,7 @@ export function getNextLessonRecommendation(
     }
   }
 
-  // 3. All batches in all continents completed
+  // 3. All lessons in all continents completed
   return {
     continent: 'Africa',
     batchIndex: 0,
@@ -332,7 +344,7 @@ export function getNextLessonRecommendation(
     totalBatchesInContinent: 6,
     actionType: 'all-completed',
     badgeLabel: 'Curriculum Completed',
-    buttonLabel: 'Review Batch 1 →',
-    description: 'All 195 sovereign flags have been introduced! Practice any batch or review retention.',
+    buttonLabel: 'Review Lesson 1 →',
+    description: 'All 195 sovereign flags have been introduced! Practice any lesson or review retention.',
   };
 }

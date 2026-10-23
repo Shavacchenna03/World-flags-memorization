@@ -1,21 +1,21 @@
 # Feature Implementation Checklist
 
 ## A. Data and application foundation
-- [ ] Load all 195 country records without runtime API calls.
-- [ ] Render all bundled flag SVGs with correct country names and accessible alternative text.
-- [ ] Assign each country to exactly one primary continent under documented rules.
-- [ ] Handle unusual flag aspect ratios without distorting the image.
-- [ ] Display a clear error if a required country record or asset is unavailable.
+- [X] Load all 195 country records without runtime API calls.
+- [X] Render all bundled flag SVGs with correct country names and accessible alternative text.
+- [X] Assign each country to exactly one primary continent under documented rules.
+- [X] Handle unusual flag aspect ratios without distorting the image.
+- [X] Display a clear error if a required country record or asset is unavailable.
 
 ## B. Learning path
-- [ ] Display the seven-continent structure and per-continent learning progress.
-- [ ] Introduce 10 new countries per batch, or fewer when a continent's final batch requires it.
-- [ ] Resume incomplete batches without duplicating newly introduced countries.
-- [ ] Keep previously introduced flags available for review.
-- [ ] Persist the current learning position across sessions.
+- [X] Display the seven-continent structure and per-continent learning progress.
+- [X] Introduce 10 new countries per batch, or fewer when a continent's final batch requires it.
+- [X] Resume incomplete batches without duplicating newly introduced countries.
+- [X] Keep previously introduced flags available for review.
+- [X] Persist the current learning position across sessions.
 
 ## C. Practice and answer evaluation
-- [ ] Complete a multiple-choice question with four valid, distinct options.
+- [X] Complete a multiple-choice question with four valid, distinct options.
 - [ ] Submit a typed answer and normalize capitalization and whitespace.
 - [ ] Accept configured aliases without accepting ambiguous country names.
 - [ ] Reveal the correct answer and useful feedback after an incorrect response.

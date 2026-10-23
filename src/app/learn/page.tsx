@@ -1,25 +1,83 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './page.module.css';
 import { ALL_CONTINENTS } from '../../types/country';
 import { getCountriesByContinent, getCountryCount } from '../../lib/countries';
-import { getBatch, getContinentBatchCount } from '../../lib/batches';
+import {
+  getBatch,
+  getContinentBatchCount,
+  getContinentBatches,
+  getTotalLessonsCount,
+} from '../../lib/batches';
 import {
   loadProgress,
   getProgressStats,
   getNextLessonRecommendation,
   UserProgress,
 } from '../../lib/progress';
+import {
+  loadPreferences,
+  savePreferences,
+  LearningPreferences,
+  LessonSize,
+  DEFAULT_LESSON_SIZE,
+} from '../../lib/preferences';
+import { OnboardingModal } from '../../components/OnboardingModal';
+import { createClient } from '../../lib/supabase/client';
+import { getSupabaseConfig } from '../../lib/supabase/config';
 
-export default function LearnDashboardPage() {
+function LearnDashboardContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [progress, setProgress] = useState<UserProgress | null>(null);
+  const [preferences, setPreferences] = useState<LearningPreferences>(() => loadPreferences());
+  const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
+  const [isEditingPace, setIsEditingPace] = useState<boolean>(false);
+
   const totalCountryCount = getCountryCount();
 
   useEffect(() => {
     setProgress(loadProgress());
-  }, []);
+    const currentPrefs = loadPreferences();
+    setPreferences(currentPrefs);
+
+    const hasOnboardingParam = searchParams.get('onboarding') === '1';
+
+    // Check Supabase authentication state
+    const { isConfigured } = getSupabaseConfig();
+    if (isConfigured) {
+      const supabase = createClient();
+      supabase.auth.getUser().then(({ data: { user } }) => {
+        // Show onboarding if genuinely new registered user OR redirected with onboarding query param
+        if (
+          !currentPrefs.onboardingCompleted &&
+          (user !== null || hasOnboardingParam)
+        ) {
+          setShowOnboarding(true);
+        }
+      });
+    } else if (hasOnboardingParam && !currentPrefs.onboardingCompleted) {
+      setShowOnboarding(true);
+    }
+  }, [searchParams]);
+
+  const handlePaceSelection = (newSize: LessonSize) => {
+    const updated = savePreferences({
+      lessonSize: newSize,
+      onboardingCompleted: true,
+    });
+    setPreferences(updated);
+    setShowOnboarding(false);
+    setIsEditingPace(false);
+
+    // Clean up query param if present
+    if (searchParams.get('onboarding')) {
+      router.replace('/learn');
+    }
+  };
 
   const stats = progress
     ? getProgressStats(totalCountryCount)
@@ -31,52 +89,109 @@ export default function LearnDashboardPage() {
         practiceAccuracy: 0,
       };
 
-  const totalBatchesAllContinents = ALL_CONTINENTS.reduce(
-    (sum, c) => sum + getContinentBatchCount(c),
-    0
-  );
+  const totalLessonsAllContinents = getTotalLessonsCount(preferences.lessonSize);
 
-  // Derive the next lesson dynamically from actual persisted progress
+  // Derive the next lesson dynamically from actual persisted progress and chosen lesson size
   const nextLesson = progress
     ? getNextLessonRecommendation(progress, (continent, batchIndex) => {
-        const batch = getBatch(continent, batchIndex);
+        const batch = getBatch(continent, batchIndex, preferences.lessonSize);
         if (!batch) return undefined;
         return {
           countryCount: batch.countries.length,
           totalBatches: batch.totalBatches,
+          countries: batch.countries,
         };
       })
     : {
         continent: 'Africa' as const,
         batchIndex: 0,
         batchNumber: 1,
-        countryCount: 10,
-        totalBatchesInContinent: 6,
+        countryCount: preferences.lessonSize,
+        totalBatchesInContinent: getContinentBatchCount('Africa', preferences.lessonSize),
         actionType: 'start' as const,
         badgeLabel: 'First Lesson',
         buttonLabel: 'Start First Lesson →',
-        description: 'Begin your study journey with the first 10 sovereign country flags in Africa.',
+        description: `Begin your study journey with the first ${preferences.lessonSize} sovereign country flags in Africa.`,
       };
+
+  // Dynamically calculate completed lessons count across all continents for current lesson size
+  let dynamicCompletedLessonsCount = 0;
+  for (const continent of ALL_CONTINENTS) {
+    if (continent === 'Antarctica') continue;
+    const batches = getContinentBatches(continent, preferences.lessonSize);
+    for (const b of batches) {
+      const isCompleted =
+        b.countries.length > 0 &&
+        b.countries.every((c) => progress?.introducedCountryCodes.includes(c.code));
+      if (isCompleted || progress?.completedBatches[continent]?.includes(b.batchIndex)) {
+        dynamicCompletedLessonsCount++;
+      }
+    }
+  }
 
   const introducedPercent = Math.min(
     100,
     Math.round((stats.introducedCount / (stats.totalCountries || 195)) * 100)
   );
 
-  const completedBatchesPercent = Math.min(
+  const completedLessonsPercent = Math.min(
     100,
-    Math.round((stats.completedBatchCount / (totalBatchesAllContinents || 23)) * 100)
+    Math.round((dynamicCompletedLessonsCount / (totalLessonsAllContinents || 23)) * 100)
   );
+
+  const paceLabel =
+    preferences.lessonSize === 5
+      ? 'Light'
+      : preferences.lessonSize === 15
+      ? 'Intensive'
+      : 'Balanced';
 
   return (
     <div className="container">
+      {/* Onboarding Modal for first-time registered users */}
+      {showOnboarding && (
+        <OnboardingModal
+          initialLessonSize={DEFAULT_LESSON_SIZE}
+          onComplete={handlePaceSelection}
+          isEditing={false}
+        />
+      )}
+
+      {/* Settings Modal when user clicks Change Pace */}
+      {isEditingPace && (
+        <OnboardingModal
+          initialLessonSize={preferences.lessonSize}
+          onComplete={handlePaceSelection}
+          isEditing={true}
+          onDismiss={() => setIsEditingPace(false)}
+        />
+      )}
+
       <main className={styles.dashboardLayout}>
         {/* Workspace Header */}
         <header className={styles.dashboardHeader}>
-          <h1 className={styles.pageTitle}>Learning Dashboard</h1>
-          <p className={styles.pageSubtitle}>
-            Structured spaced-repetition curriculum across 195 sovereign nations
-          </p>
+          <div className={styles.headerRow}>
+            <div>
+              <h1 className={styles.pageTitle}>Learning Dashboard</h1>
+              <p className={styles.pageSubtitle}>
+                Structured spaced-repetition curriculum across 195 sovereign nations
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsEditingPace(true)}
+              className={styles.paceBadgeBtn}
+              id="change-learning-pace-btn"
+              title="Change how many flags you learn per lesson"
+            >
+              <span className={styles.paceDot} aria-hidden="true" />
+              <span>
+                Pace: {preferences.lessonSize} flags ({paceLabel})
+              </span>
+              <span className={styles.changePaceText}>Change</span>
+            </button>
+          </div>
         </header>
 
         {/* 1. PRIMARY: Next Lesson / Resume Action */}
@@ -87,7 +202,7 @@ export default function LearnDashboardPage() {
           <div className={styles.nextLessonInfo}>
             <span className={styles.nextLessonBadge}>{nextLesson.badgeLabel}</span>
             <h2 className={styles.nextLessonTitle}>
-              {nextLesson.continent} · Batch {nextLesson.batchNumber}
+              {nextLesson.continent} · Lesson {nextLesson.batchNumber}
             </h2>
             <p className={styles.nextLessonDesc}>
               {nextLesson.description}
@@ -95,7 +210,7 @@ export default function LearnDashboardPage() {
           </div>
 
           <Link
-            href={`/learn/study/${encodeURIComponent(nextLesson.continent)}/${nextLesson.batchIndex}`}
+            href={`/learn/study/${encodeURIComponent(nextLesson.continent)}/${nextLesson.batchNumber}`}
             className={styles.nextLessonAction}
             id="start-next-lesson-btn"
           >
@@ -145,30 +260,30 @@ export default function LearnDashboardPage() {
               </span>
             </div>
 
-            {/* Completed Batches */}
+            {/* Lessons Completed (Dynamically calculated based on user's lesson size) */}
             <div className={styles.analyticsCard}>
               <span className={styles.analyticsValue}>
-                {stats.completedBatchCount}
+                {dynamicCompletedLessonsCount}
                 <span style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>
-                  {' '}/ {totalBatchesAllContinents}
+                  {' '}/ {totalLessonsAllContinents}
                 </span>
               </span>
-              <span className={styles.analyticsLabel}>Batches Completed</span>
+              <span className={styles.analyticsLabel}>Lessons Completed</span>
               <div
                 className={styles.analyticsMeter}
                 role="progressbar"
-                aria-valuenow={stats.completedBatchCount}
+                aria-valuenow={dynamicCompletedLessonsCount}
                 aria-valuemin={0}
-                aria-valuemax={totalBatchesAllContinents}
-                aria-label="Batches completed progress"
+                aria-valuemax={totalLessonsAllContinents}
+                aria-label="Lessons completed progress"
               >
                 <div
                   className={styles.analyticsMeterFill}
-                  style={{ width: `${completedBatchesPercent}%` }}
+                  style={{ width: `${completedLessonsPercent}%` }}
                 />
               </div>
               <span className={styles.analyticsHint}>
-                10 sovereign flags per curriculum batch
+                {preferences.lessonSize} sovereign flags per curriculum lesson
               </span>
             </div>
 
@@ -221,15 +336,20 @@ export default function LearnDashboardPage() {
           <div className={styles.curriculumList}>
             {ALL_CONTINENTS.map((continent) => {
               const countries = getCountriesByContinent(continent);
-              const batchCount = getContinentBatchCount(continent);
+              const batchCount = getContinentBatchCount(continent, preferences.lessonSize);
               const isAntarctica = continent === 'Antarctica';
 
               const introducedInContinent = countries.filter((c) =>
                 progress?.introducedCountryCodes.includes(c.code)
               ).length;
 
-              const completedBatchesForContinent =
-                progress?.completedBatches[continent]?.length || 0;
+              const continentBatches = getContinentBatches(continent, preferences.lessonSize);
+              const completedLessonsForContinent = continentBatches.filter(
+                (b) =>
+                  b.countries.length > 0 &&
+                  (b.countries.every((c) => progress?.introducedCountryCodes.includes(c.code)) ||
+                    progress?.completedBatches[continent]?.includes(b.batchIndex))
+              ).length;
 
               if (isAntarctica) {
                 return (
@@ -260,14 +380,14 @@ export default function LearnDashboardPage() {
                     <div className={styles.curriculumName}>{continent}</div>
                     <div className={styles.curriculumMeta}>
                       {countries.length} sovereign states · {batchCount}{' '}
-                      {batchCount === 1 ? 'batch' : 'batches'}
+                      {batchCount === 1 ? 'lesson' : 'lessons'}
                     </div>
                   </div>
 
                   <div className={styles.curriculumRight}>
                     <span className={styles.curriculumProgress}>
-                      {completedBatchesForContinent > 0
-                        ? `${completedBatchesForContinent} of ${batchCount} batches completed`
+                      {completedLessonsForContinent > 0
+                        ? `${completedLessonsForContinent} of ${batchCount} lessons completed`
                         : introducedInContinent > 0
                         ? `${introducedInContinent} flags introduced`
                         : 'Not started'}
@@ -314,5 +434,13 @@ export default function LearnDashboardPage() {
         </section>
       </main>
     </div>
+  );
+}
+
+export default function LearnDashboardPage() {
+  return (
+    <Suspense fallback={<div className="container" style={{ padding: '3rem 0' }}>Loading curriculum...</div>}>
+      <LearnDashboardContent />
+    </Suspense>
   );
 }

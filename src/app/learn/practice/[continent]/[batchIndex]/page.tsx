@@ -1,12 +1,12 @@
 'use client';
 
-import React, { use, useState, useMemo } from 'react';
+import React, { use, useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 import { Continent, ALL_CONTINENTS, Country } from '../../../../../types/country';
 import { getAllCountries } from '../../../../../lib/countries';
-import { getBatch, getContinentBatchCount } from '../../../../../lib/batches';
+import { getBatch, getBatchByNumber, getContinentBatchCount } from '../../../../../lib/batches';
 import {
   evaluateTypedAnswer,
   generateMultipleChoiceOptions,
@@ -16,6 +16,8 @@ import {
   PracticeMode,
   FlashcardRating,
 } from '../../../../../lib/progress';
+import { shuffleArray } from '../../../../../lib/session';
+import { loadPreferences, LearningPreferences } from '../../../../../lib/preferences';
 import { FlagImage } from '../../../../../components/FlagImage';
 
 interface PracticePageProps {
@@ -28,24 +30,52 @@ interface PracticePageProps {
 export default function PracticeSessionPage({ params }: PracticePageProps) {
   const resolvedParams = use(params);
   const rawContinent = decodeURIComponent(resolvedParams.continent) as Continent;
-  const batchIdx = parseInt(resolvedParams.batchIndex, 10);
+  const routeBatchNum = parseInt(resolvedParams.batchIndex, 10);
 
-  if (!ALL_CONTINENTS.includes(rawContinent) || isNaN(batchIdx)) {
+  if (!ALL_CONTINENTS.includes(rawContinent) || isNaN(routeBatchNum)) {
     notFound();
   }
 
-  const batch = getBatch(rawContinent, batchIdx);
-  if (!batch) {
+  // Pre-check if route number exceeds the maximum possible lessons for this continent under any lesson size (size 5)
+  if (routeBatchNum < 1 || routeBatchNum > getContinentBatchCount(rawContinent, 5)) {
+    notFound();
+  }
+
+  const [preferences, setPreferences] = useState<LearningPreferences>(() => loadPreferences());
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setPreferences(loadPreferences());
+  }, []);
+
+  // Authoritative lesson lookup using active lesson size
+  const batch =
+    routeBatchNum >= 1
+      ? getBatchByNumber(rawContinent, routeBatchNum, preferences.lessonSize)
+      : getBatch(rawContinent, 0, preferences.lessonSize);
+
+  if (mounted && !batch) {
     notFound();
   }
 
   const allWorldCountries = useMemo(() => getAllCountries(), []);
-  const batchCountries = batch.countries;
-  const totalBatchesInContinent = getContinentBatchCount(rawContinent);
-  const hasNextBatch = batchIdx + 1 < totalBatchesInContinent;
+  const totalBatchesInContinent = getContinentBatchCount(rawContinent, preferences.lessonSize);
+  const hasNextBatch = batch ? batch.batchNumber < totalBatchesInContinent : false;
 
   // Active Practice Mode
   const [mode, setMode] = useState<PracticeMode>('multiple-choice');
+
+  // Randomized question sequence for the active practice session
+  const [batchCountries, setBatchCountries] = useState<Country[]>(() =>
+    batch ? shuffleArray(batch.countries) : []
+  );
+
+  useEffect(() => {
+    if (batch && batchCountries.length === 0) {
+      setBatchCountries(shuffleArray(batch.countries));
+    }
+  }, [batch, batchCountries.length]);
 
   // Session state
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -71,7 +101,7 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
 
   // Handle MCQ selection
   const handleSelectOption = (chosen: Country) => {
-    if (selectedOption !== null) return; // already answered
+    if (selectedOption !== null || !currentCountry) return; // already answered
     setSelectedOption(chosen.code);
 
     const isCorrect = chosen.code === currentCountry.code;
@@ -95,39 +125,43 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
     });
   };
 
-  // Handle Typed Recall submit
+  // Handle Typed Answer Submission
   const handleTypedSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (typedSubmitted || !typedInput.trim()) return;
+    if (typedSubmitted || !typedInput.trim() || !currentCountry) return;
 
+    const evalResult = evaluateTypedAnswer(typedInput, currentCountry);
     setTypedSubmitted(true);
-    const result = evaluateTypedAnswer(typedInput, currentCountry);
     setAttemptedCount((prev) => prev + 1);
 
-    if (result.isCorrect) {
+    if (evalResult.isCorrect) {
       setCorrectCount((prev) => prev + 1);
-      setFeedback({ isCorrect: true, message: `Correct! ${currentCountry.name}.` });
+      setFeedback({
+        isCorrect: true,
+        message: `Correct! ${currentCountry.name}.`,
+      });
     } else {
       setIncorrectCount((prev) => prev + 1);
       setFeedback({
         isCorrect: false,
-        message: `Incorrect. Expected: ${result.expectedAnswer}`,
+        message: `Incorrect. The correct answer is ${currentCountry.name}.`,
       });
     }
 
     recordPracticeAttempt({
       countryCode: currentCountry.code,
       mode: 'typed',
-      isCorrect: result.isCorrect,
+      isCorrect: evalResult.isCorrect,
     });
   };
 
-  // Handle Flashcard self-rating
+  // Handle Flashcard Self-Rating
   const handleFlashcardRate = (rating: FlashcardRating) => {
+    if (!currentCountry) return;
+    const isConsideredPass = rating === 'good' || rating === 'easy';
     setAttemptedCount((prev) => prev + 1);
-    const isSubjectiveCorrect = rating === 'good' || rating === 'easy';
 
-    if (isSubjectiveCorrect) {
+    if (isConsideredPass) {
       setCorrectCount((prev) => prev + 1);
     } else {
       setIncorrectCount((prev) => prev + 1);
@@ -136,29 +170,30 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
     recordPracticeAttempt({
       countryCode: currentCountry.code,
       mode: 'flashcard',
-      isCorrect: isSubjectiveCorrect,
+      isCorrect: isConsideredPass,
       selfRating: rating,
     });
-
     advanceNext();
   };
 
-  // Move to next question or finish
+  // Advance to Next Question
   const advanceNext = () => {
-    setSelectedOption(null);
-    setTypedInput('');
-    setTypedSubmitted(false);
-    setIsFlashcardRevealed(false);
-    setFeedback(null);
-
     if (currentIndex < batchCountries.length - 1) {
       setCurrentIndex((prev) => prev + 1);
+      setSelectedOption(null);
+      setTypedInput('');
+      setTypedSubmitted(false);
+      setIsFlashcardRevealed(false);
+      setFeedback(null);
     } else {
       setIsSessionFinished(true);
     }
   };
 
+  // Reset/Restart Session with fresh randomization
   const restartSession = () => {
+    if (!batch) return;
+    setBatchCountries(shuffleArray(batch.countries));
     setCurrentIndex(0);
     setSelectedOption(null);
     setTypedInput('');
@@ -171,7 +206,17 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
     setIsSessionFinished(false);
   };
 
-  // Render Session Completion Summary
+  if (!batch || !currentCountry) {
+    return (
+      <div className={styles.practiceContainer}>
+        <div style={{ padding: '3rem 0', color: 'var(--text-secondary)' }}>
+          Loading practice session...
+        </div>
+      </div>
+    );
+  }
+
+  // Session Summary View
   if (isSessionFinished) {
     const accuracy =
       attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;
@@ -182,7 +227,7 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
           <div className={styles.summaryGlyph} aria-hidden="true">✦</div>
           <h1 className={styles.summaryTitle}>Practice Session Complete</h1>
           <p className={styles.summarySubtitle}>
-            Completed review of {rawContinent} · Batch {batch.batchNumber} ({batchCountries.length} flags)
+            Completed review of {rawContinent} · Lesson {batch.batchNumber} ({batchCountries.length} flags)
           </p>
 
           <div className={styles.summaryStatsGrid}>
@@ -210,16 +255,16 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
               className={styles.nextQuestionBtn}
               style={{ marginTop: 0 }}
             >
-              Practice Batch Again
+              Practice Lesson Again
             </button>
 
             {hasNextBatch && (
               <Link
-                href={`/learn/study/${encodeURIComponent(rawContinent)}/${batchIdx + 1}`}
+                href={`/learn/study/${encodeURIComponent(rawContinent)}/${batch.batchNumber + 1}`}
                 className={styles.submitBtn}
                 style={{ textDecoration: 'none' }}
               >
-                Study Next Batch (Batch {batchIdx + 2}) →
+                Study Next Lesson (Lesson {batch.batchNumber + 1}) →
               </Link>
             )}
 
@@ -243,36 +288,12 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
       <div className={styles.topBar}>
         <div className={styles.breadcrumb}>
           <Link href={`/learn/continents/${encodeURIComponent(rawContinent)}`}>
-            ← {rawContinent} / Batch {batch.batchNumber}
+            ← {rawContinent} / Lesson {batch.batchNumber}
           </Link>
         </div>
 
-        {/* Practice Mode Selector */}
-        <div className={styles.modeSelector} role="tablist" aria-label="Select practice mode">
-          <button
-            role="tab"
-            aria-selected={mode === 'multiple-choice'}
-            onClick={() => setMode('multiple-choice')}
-            className={`${styles.modeTab} ${mode === 'multiple-choice' ? styles.modeTabActive : ''}`}
-          >
-            Multiple Choice
-          </button>
-          <button
-            role="tab"
-            aria-selected={mode === 'typed'}
-            onClick={() => setMode('typed')}
-            className={`${styles.modeTab} ${mode === 'typed' ? styles.modeTabActive : ''}`}
-          >
-            Typed Recall
-          </button>
-          <button
-            role="tab"
-            aria-selected={mode === 'flashcard'}
-            onClick={() => setMode('flashcard')}
-            className={`${styles.modeTab} ${mode === 'flashcard' ? styles.modeTabActive : ''}`}
-          >
-            Flashcards
-          </button>
+        <div className={styles.stepIndicator}>
+          Flag {currentIndex + 1} of {batchCountries.length}
         </div>
       </div>
 
@@ -286,37 +307,78 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
         <div className={styles.progressBarFill} style={{ width: `${progressPercent}%` }} />
       </div>
 
-      <main className={styles.practiceCard}>
-        <h2 className={styles.questionPrompt}>
-          Question {currentIndex + 1} of {batchCountries.length} — Which country is this?
-        </h2>
+      {/* Mode Switcher Tabs */}
+      <div className={styles.modeTabs} role="tablist" aria-label="Practice Modes">
+        <button
+          role="tab"
+          aria-selected={mode === 'multiple-choice'}
+          onClick={() => {
+            setMode('multiple-choice');
+            setSelectedOption(null);
+            setFeedback(null);
+          }}
+          className={`${styles.modeTab} ${mode === 'multiple-choice' ? styles.modeTabActive : ''}`}
+        >
+          Multiple Choice
+        </button>
+        <button
+          role="tab"
+          aria-selected={mode === 'typed'}
+          onClick={() => {
+            setMode('typed');
+            setTypedSubmitted(false);
+            setFeedback(null);
+          }}
+          className={`${styles.modeTab} ${mode === 'typed' ? styles.modeTabActive : ''}`}
+        >
+          Typed Recall
+        </button>
+        <button
+          role="tab"
+          aria-selected={mode === 'flashcard'}
+          onClick={() => {
+            setMode('flashcard');
+            setIsFlashcardRevealed(false);
+            setFeedback(null);
+          }}
+          className={`${styles.modeTab} ${mode === 'flashcard' ? styles.modeTabActive : ''}`}
+        >
+          Flashcard
+        </button>
+      </div>
 
+      <main className={styles.card}>
         <div className={styles.flagWrapper}>
-          <FlagImage country={currentCountry} size="lg" />
+          <FlagImage country={currentCountry} size="xl" />
         </div>
 
         {/* MODE 1: MULTIPLE CHOICE */}
         {mode === 'multiple-choice' && (
           <>
+            <h2 className={styles.questionPrompt}>Which sovereign nation flies this flag?</h2>
+
             <div className={styles.optionsGrid}>
-              {mcOptions.map((option) => {
-                let optionClass = '';
+              {mcOptions.map((opt) => {
+                const isSelected = selectedOption === opt.code;
+                const isTarget = opt.code === currentCountry.code;
+
+                let optClass = styles.optionBtn;
                 if (selectedOption !== null) {
-                  if (option.code === currentCountry.code) {
-                    optionClass = styles.optionCorrect;
-                  } else if (option.code === selectedOption) {
-                    optionClass = styles.optionIncorrect;
+                  if (isTarget) {
+                    optClass = `${styles.optionBtn} ${styles.optionCorrect}`;
+                  } else if (isSelected) {
+                    optClass = `${styles.optionBtn} ${styles.optionIncorrect}`;
                   }
                 }
 
                 return (
                   <button
-                    key={option.code}
-                    onClick={() => handleSelectOption(option)}
+                    key={opt.code}
+                    onClick={() => handleSelectOption(opt)}
                     disabled={selectedOption !== null}
-                    className={`${styles.optionBtn} ${optionClass}`}
+                    className={optClass}
                   >
-                    {option.name}
+                    <span>{opt.name}</span>
                   </button>
                 );
               })}
@@ -344,15 +406,17 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
         {/* MODE 2: TYPED RECALL */}
         {mode === 'typed' && (
           <>
+            <h2 className={styles.questionPrompt}>Type the name of this country:</h2>
+
             <form onSubmit={handleTypedSubmit} className={styles.typedForm}>
               <input
                 type="text"
-                autoFocus
-                placeholder="Type country name..."
                 value={typedInput}
                 onChange={(e) => setTypedInput(e.target.value)}
+                placeholder="e.g. Argentina, South Korea..."
                 disabled={typedSubmitted}
                 className={styles.typedInput}
+                autoFocus
                 aria-label="Country name input"
               />
               {!typedSubmitted && (
