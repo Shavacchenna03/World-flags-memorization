@@ -9,6 +9,7 @@ import { getCountriesByContinent } from '../../../../lib/countries';
 import { getContinentBatches } from '../../../../lib/batches';
 import { loadProgress, UserProgress } from '../../../../lib/progress';
 import { loadPreferences, LearningPreferences } from '../../../../lib/preferences';
+import { learningRepository } from '../../../../lib/progress/repository';
 import { FlagImage } from '../../../../components/FlagImage';
 
 interface ContinentPageProps {
@@ -31,6 +32,9 @@ export default function ContinentBatchesPage({ params }: ContinentPageProps) {
   useEffect(() => {
     setProgress(loadProgress());
     setPreferences(loadPreferences());
+
+    learningRepository.getLearningPreferences().then(setPreferences);
+    learningRepository.getUserProgress().then(setProgress);
   }, []);
 
   const countries = getCountriesByContinent(rawContinent);

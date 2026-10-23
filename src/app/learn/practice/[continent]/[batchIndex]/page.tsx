@@ -18,6 +18,7 @@ import {
 } from '../../../../../lib/progress';
 import { shuffleArray } from '../../../../../lib/session';
 import { loadPreferences, LearningPreferences } from '../../../../../lib/preferences';
+import { learningRepository } from '../../../../../lib/progress/repository';
 import { FlagImage } from '../../../../../components/FlagImage';
 
 interface PracticePageProps {
@@ -46,7 +47,9 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
 
   useEffect(() => {
     setMounted(true);
-    setPreferences(loadPreferences());
+    learningRepository.getLearningPreferences().then((prefs) => {
+      setPreferences(prefs);
+    });
   }, []);
 
   // Authoritative lesson lookup using active lesson size
@@ -118,7 +121,7 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
       });
     }
 
-    recordPracticeAttempt({
+    learningRepository.savePracticeAttempt({
       countryCode: currentCountry.code,
       mode: 'multiple-choice',
       isCorrect,
@@ -148,7 +151,7 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
       });
     }
 
-    recordPracticeAttempt({
+    learningRepository.savePracticeAttempt({
       countryCode: currentCountry.code,
       mode: 'typed',
       isCorrect: evalResult.isCorrect,
@@ -167,7 +170,7 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
       setIncorrectCount((prev) => prev + 1);
     }
 
-    recordPracticeAttempt({
+    learningRepository.savePracticeAttempt({
       countryCode: currentCountry.code,
       mode: 'flashcard',
       isCorrect: isConsideredPass,

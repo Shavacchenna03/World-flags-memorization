@@ -12,11 +12,8 @@ import {
   saveStudySession,
   StudySessionState,
 } from '../../../../../lib/session';
-import {
-  markCountriesIntroduced,
-  markBatchCompleted,
-} from '../../../../../lib/progress';
 import { loadPreferences, LearningPreferences } from '../../../../../lib/preferences';
+import { learningRepository } from '../../../../../lib/progress/repository';
 import { FlagImage } from '../../../../../components/FlagImage';
 
 interface StudyPageProps {
@@ -45,11 +42,12 @@ export default function BatchStudyPage({ params }: StudyPageProps) {
 
   useEffect(() => {
     setMounted(true);
-    setPreferences(loadPreferences());
+    learningRepository.getLearningPreferences().then((prefs) => {
+      setPreferences(prefs);
+    });
   }, []);
 
-  // Authoritative lesson lookup using user's active lesson size:
-  // Route numbers >= 1 represent the 1-based lesson number (e.g. /1 is Lesson 1).
+  // Authoritative lesson lookup using user's active lesson size
   const batch =
     routeBatchNum >= 1
       ? getBatchByNumber(rawContinent, routeBatchNum, preferences.lessonSize)
@@ -94,7 +92,7 @@ export default function BatchStudyPage({ params }: StudyPageProps) {
   // Mark country as introduced using country-identity (ISO code), not position
   useEffect(() => {
     if (currentCountry && !isCompleted) {
-      markCountriesIntroduced([currentCountry.code]);
+      learningRepository.saveCountriesIntroduced([currentCountry.code]);
     }
   }, [currentCountry, isCompleted]);
 
@@ -111,8 +109,8 @@ export default function BatchStudyPage({ params }: StudyPageProps) {
     } else {
       // Completed full lesson introduction
       const canonicalCodes = batch.countries.map((c) => c.code);
-      markCountriesIntroduced(canonicalCodes);
-      markBatchCompleted(rawContinent, batch.batchIndex);
+      learningRepository.saveCountriesIntroduced(canonicalCodes);
+      learningRepository.saveBatchCompleted(rawContinent, batch.batchIndex);
 
       const completedSession: StudySessionState = {
         ...session,

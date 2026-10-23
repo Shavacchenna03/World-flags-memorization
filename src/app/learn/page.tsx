@@ -20,12 +20,14 @@ import {
 } from '../../lib/progress';
 import {
   loadPreferences,
-  savePreferences,
   LearningPreferences,
   LessonSize,
   DEFAULT_LESSON_SIZE,
 } from '../../lib/preferences';
 import { OnboardingModal } from '../../components/OnboardingModal';
+import { ProgressMigrationPrompt } from '../../components/ProgressMigrationPrompt';
+import { learningRepository } from '../../lib/progress/repository';
+import { MigrationState } from '../../lib/progress/types';
 import { createClient } from '../../lib/supabase/client';
 import { getSupabaseConfig } from '../../lib/supabase/config';
 
@@ -36,36 +38,50 @@ function LearnDashboardContent() {
   const [preferences, setPreferences] = useState<LearningPreferences>(() => loadPreferences());
   const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
   const [isEditingPace, setIsEditingPace] = useState<boolean>(false);
+  const [migrationState, setMigrationState] = useState<MigrationState | null>(null);
 
   const totalCountryCount = getCountryCount();
 
   useEffect(() => {
+    // 1. Initial fast local load for instant render
     setProgress(loadProgress());
     const currentPrefs = loadPreferences();
     setPreferences(currentPrefs);
 
     const hasOnboardingParam = searchParams.get('onboarding') === '1';
 
-    // Check Supabase authentication state
-    const { isConfigured } = getSupabaseConfig();
-    if (isConfigured) {
-      const supabase = createClient();
-      supabase.auth.getUser().then(({ data: { user } }) => {
-        // Show onboarding if genuinely new registered user OR redirected with onboarding query param
-        if (
-          !currentPrefs.onboardingCompleted &&
-          (user !== null || hasOnboardingParam)
-        ) {
-          setShowOnboarding(true);
-        }
-      });
-    } else if (hasOnboardingParam && !currentPrefs.onboardingCompleted) {
-      setShowOnboarding(true);
-    }
+    // 2. Fetch authoritative repository data (cloud if authenticated, local if guest)
+    learningRepository.getLearningPreferences().then((cloudPrefs) => {
+      setPreferences(cloudPrefs);
+
+      // Check onboarding modal requirement
+      const { isConfigured } = getSupabaseConfig();
+      if (isConfigured) {
+        const supabase = createClient();
+        supabase.auth.getUser().then(({ data: { user } }) => {
+          if (!cloudPrefs.onboardingCompleted && (user !== null || hasOnboardingParam)) {
+            setShowOnboarding(true);
+          }
+        });
+      } else if (hasOnboardingParam && !cloudPrefs.onboardingCompleted) {
+        setShowOnboarding(true);
+      }
+    });
+
+    learningRepository.getUserProgress().then((userProg) => {
+      setProgress(userProg);
+    });
+
+    // 3. Check if user has unmigrated local progress
+    learningRepository.checkMigrationEligibility().then((state) => {
+      if (state.eligibleForMigration) {
+        setMigrationState(state);
+      }
+    });
   }, [searchParams]);
 
-  const handlePaceSelection = (newSize: LessonSize) => {
-    const updated = savePreferences({
+  const handlePaceSelection = async (newSize: LessonSize) => {
+    const updated = await learningRepository.saveLearningPreferences({
       lessonSize: newSize,
       onboardingCompleted: true,
     });
@@ -77,6 +93,18 @@ function LearnDashboardContent() {
     if (searchParams.get('onboarding')) {
       router.replace('/learn');
     }
+  };
+
+  const handleMigrationImported = async () => {
+    setMigrationState(null);
+    const updatedProgress = await learningRepository.getUserProgress();
+    const updatedPrefs = await learningRepository.getLearningPreferences();
+    setProgress(updatedProgress);
+    setPreferences(updatedPrefs);
+  };
+
+  const handleMigrationDismissed = () => {
+    setMigrationState(null);
   };
 
   const stats = progress
@@ -194,6 +222,16 @@ function LearnDashboardContent() {
           </div>
         </header>
 
+        {/* Local -> Cloud Progress Migration Banner */}
+        {migrationState && (
+          <ProgressMigrationPrompt
+            localIntroducedCount={migrationState.localIntroducedCount}
+            localAttemptsCount={migrationState.localAttemptsCount}
+            onImportCompleted={handleMigrationImported}
+            onDismissed={handleMigrationDismissed}
+          />
+        )}
+
         {/* 1. PRIMARY: Next Lesson / Resume Action */}
         <section
           className={styles.nextLessonCard}
@@ -260,7 +298,7 @@ function LearnDashboardContent() {
               </span>
             </div>
 
-            {/* Lessons Completed (Dynamically calculated based on user's lesson size) */}
+            {/* Lessons Completed */}
             <div className={styles.analyticsCard}>
               <span className={styles.analyticsValue}>
                 {dynamicCompletedLessonsCount}
