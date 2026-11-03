@@ -249,6 +249,7 @@
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75);
     z-index: 95;
     max-height: calc(100vh - 56px - var(--sat));
+    max-height: calc(100dvh - 56px - var(--sat));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     transform-origin: top;

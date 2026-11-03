@@ -57,6 +57,19 @@
   box-shadow: none;
 }
 
+@media (min-width: 769px) {
+  .sizeXl,
+  .sizeDisplay {
+    max-width: 340px;
+    height: clamp(140px, 20vh, 180px);
+  }
+
+  .sizeResponsive {
+    max-width: 340px;
+    height: clamp(140px, 20vh, 180px);
+  }
+}
+
 .withBorder {
   border: 1px solid var(--border-divider);
 }
