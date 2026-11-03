@@ -79,9 +79,17 @@
   --shadow-medium: 0 3px 10px rgba(0, 0, 0, 0.35);
 
   --max-width: 1040px;
+
+  /* Safe Area Inset Support */
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -96,11 +104,21 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
@@ -109,11 +127,25 @@ button {
   background: none;
   border: none;
   color: inherit;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-input {
+input,
+button,
+textarea,
+select {
   font-family: inherit;
   color: inherit;
+}
+
+/* Prevent auto-zoom on mobile inputs */
+@media (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }
 
 /* Accessibility Focus Ring: Understated, clean */
@@ -127,13 +159,9 @@ input {
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 2rem;
-}
-
-@media (max-width: 640px) {
-  .container {
-    padding: 0 1.25rem;
-  }
+  padding-left: clamp(1rem, 3.5vw, 2rem);
+  padding-right: clamp(1rem, 3.5vw, 2rem);
+  box-sizing: border-box;
 }
 
 /* Reduced motion preference (with data-force-motion escape hatch for verification) */

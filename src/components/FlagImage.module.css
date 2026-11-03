@@ -3,56 +3,92 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg-secondary);
-  overflow: hidden;
-  border-radius: var(--radius-xs);
-  box-shadow: var(--shadow-subtle);
   user-select: none;
   flex-shrink: 0;
   transition: opacity 0.15s ease;
+}
+
+/* Fixed thumbnail containers for lists and tables */
+.sizeSm {
+  width: 38px;
+  height: 25px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+}
+
+.sizeMd {
+  width: 68px;
+  height: 45px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+}
+
+.sizeLg {
+  width: 136px;
+  height: 90px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+}
+
+/* Display / Study / Practice variant: perfectly hugs flag dimensions without empty height */
+.sizeXl,
+.sizeDisplay {
+  max-width: min(280px, 80vw);
+  height: clamp(100px, 18vh, 140px);
+  width: auto;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.sizeResponsive {
+  width: 100%;
+  max-width: 280px;
+  height: clamp(100px, 18vh, 140px);
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .withBorder {
   border: 1px solid var(--border-divider);
 }
 
-/* Size Variants */
-.sizeSm {
-  width: 38px;
-  height: 25px;
-}
-
-.sizeMd {
-  width: 68px;
-  height: 45px;
-}
-
-.sizeLg {
-  width: 136px;
-  height: 90px;
-}
-
-.sizeXl {
-  width: 220px;
-  height: 146px;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-medium);
-}
-
-.sizeResponsive {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  max-width: 280px;
-  height: auto;
+.sizeXl.withBorder,
+.sizeDisplay.withBorder,
+.sizeResponsive.withBorder {
+  border: none;
 }
 
 /* Image Element */
 .flagImg {
-  width: 100%;
+  max-width: 100%;
   height: 100%;
+  width: auto;
   object-fit: contain;
   display: block;
   pointer-events: none;
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--border-divider);
+}
+
+/* Inside fixed thumbnail boxes, img fills the container */
+.sizeSm .flagImg,
+.sizeMd .flagImg,
+.sizeLg .flagImg {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* Fallback state when image cannot load */
@@ -62,23 +98,25 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  min-height: 45px;
   background-color: var(--surface-elevated);
   color: var(--text-muted);
   font-family: var(--font-sans);
   text-align: center;
-  padding: 4px;
+  padding: 6px 12px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-divider);
 }
 
 .fallbackCode {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   color: var(--text-secondary);
 }
 
 .fallbackNotice {
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   color: var(--text-faint);
   margin-top: 1px;
 }

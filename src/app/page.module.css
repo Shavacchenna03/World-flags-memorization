@@ -1,18 +1,21 @@
 .heroWrapper {
   position: relative;
   min-height: calc(100vh - 56px);
+  min-height: calc(100svh - 56px);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 3rem 1.5rem;
+  padding: clamp(2rem, 5vh, 4rem) clamp(1rem, 3.5vw, 1.5rem);
+  box-sizing: border-box;
 }
 
 .heroForeground {
   position: relative;
   z-index: 10;
   max-width: 680px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
 }
@@ -27,13 +30,14 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent-primary);
-  background-color: rgba(23, 24, 20, 0.88);
+  background-color: rgba(23, 24, 20, 0.92);
   border: 1px solid var(--accent-primary-border);
   padding: 0.28rem 0.85rem;
   border-radius: var(--radius-xs);
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 .identityTagDot {
@@ -41,39 +45,42 @@
   height: 5px;
   border-radius: 50%;
   background-color: var(--accent-primary);
+  flex-shrink: 0;
 }
 
 .headline {
   font-family: var(--font-serif);
-  font-size: 3.35rem;
+  font-size: clamp(2rem, 6.8vw, 3.35rem);
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: var(--text-primary);
-  margin-bottom: 1.25rem;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.95);
+  margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 1);
+  word-break: break-word;
 }
 
 .subheadline {
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
+  font-size: clamp(0.875rem, 2.5vw, 1.0625rem);
   font-weight: 400;
-  line-height: 1.65;
-  color: var(--text-secondary);
-  margin-bottom: 2.75rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: clamp(1.75rem, 4vh, 2.75rem);
   max-width: 520px;
   margin-left: auto;
   margin-right: auto;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85), 0 2px 14px rgba(0, 0, 0, 0.65);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95), 0 1px 4px #000;
 }
 
 .ctaWrapper {
-  margin-bottom: 2.75rem;
+  margin-bottom: clamp(1.5rem, 3.5vh, 2.75rem);
 }
 
 .startBtn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.65rem;
   background-color: var(--accent-primary);
   color: var(--accent-primary-contrast);
@@ -81,16 +88,18 @@
   font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: 0.01em;
-  padding: 0.85rem 2.25rem;
+  padding: 0.85rem clamp(1.75rem, 5vw, 2.25rem);
   border-radius: var(--radius-xs);
   transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65);
+  min-height: 48px;
+  touch-action: manipulation;
 }
 
 .startBtn:hover {
   background-color: var(--accent-primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.75);
 }
 
 .arrowGlyph {
@@ -104,30 +113,21 @@
 
 .footerNote {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: clamp(0.6875rem, 2vw, 0.75rem);
   font-weight: 400;
   color: var(--text-muted);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+  line-height: 1.4;
+  padding: 0 0.5rem;
 }
 
 @media (max-width: 640px) {
   .heroWrapper {
-    min-height: calc(100vh - 56px);
-    padding: 2.5rem 1rem;
+    padding: 2rem 1rem;
   }
   .heroForeground {
-    padding: 0 0.5rem;
-  }
-  .headline {
-    font-size: 2.35rem;
-    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.95), 0 1px 4px #000;
-  }
-  .subheadline {
-    font-size: 0.9375rem;
-    margin-bottom: 2rem;
-    color: var(--text-primary);
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95), 0 1px 4px #000;
+    padding: 0 0.25rem;
   }
 }

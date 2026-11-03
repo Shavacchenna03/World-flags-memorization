@@ -4,7 +4,7 @@ import { Header } from '../components/Header';
 import { generateThemeCssVariables, getActiveTheme } from '../lib/theme';
 
 export const metadata: Metadata = {
-  title: 'World Flags — Master the 195 National Flags',
+  title: 'Vexifer — Master the 195 National Flags',
   description:
     'A personal, local-first adaptive learning application for mastering the national flags of all 195 sovereign countries.',
 };

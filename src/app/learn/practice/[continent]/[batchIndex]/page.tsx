@@ -350,7 +350,7 @@ export default function PracticeSessionPage({ params }: PracticePageProps) {
         </button>
       </div>
 
-      <main className={styles.card}>
+      <main className={`${styles.card} ${styles.practiceCard}`}>
         <div className={styles.flagWrapper}>
           <FlagImage country={currentCountry} size="xl" />
         </div>

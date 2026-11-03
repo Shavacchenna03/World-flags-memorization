@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import styles from './FlagImage.module.css';
 import { Country } from '../types/country';
 
-export type FlagSize = 'sm' | 'md' | 'lg' | 'xl' | 'responsive';
+export type FlagSize = 'sm' | 'md' | 'lg' | 'xl' | 'responsive' | 'display';
 
 export interface FlagImageProps {
   /**
@@ -80,6 +80,7 @@ export function FlagImage({
     lg: styles.sizeLg,
     xl: styles.sizeXl,
     responsive: styles.sizeResponsive,
+    display: styles.sizeDisplay,
   }[size] || styles.sizeMd;
 
   const containerClasses = [
