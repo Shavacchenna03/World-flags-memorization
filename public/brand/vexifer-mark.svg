@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <style>
+      .vexifer-pole { fill: #2E3027; }
+      @media (prefers-color-scheme: dark) {
+        .vexifer-pole { fill: #484A3D; }
+      }
+    </style>
+  </defs>
+
+  <!-- Flagpole: Rounded Finial & Shaft -->
+  <circle cx="56" cy="52" r="9.5" class="vexifer-pole" fill="#2E3027" />
+  <rect x="52" y="52" width="8" height="96" rx="4" class="vexifer-pole" fill="#2E3027" />
+
+  <!-- Flag Cloth -->
+  <!-- 1. Lower Muted Olive Field -->
+  <path d="M 60,102
+           C 78,96 102,104 122,116
+           L 168,82
+           C 170,98 172,114 176,126
+           C 142,138 106,120 60,132 Z"
+        fill="#96966B" />
+
+  <!-- 2. Warm Ivory Accent Chevron Underlay -->
+  <path d="M 85,99
+           C 98,99 108,106 122,126
+           L 168,82
+           L 160,80
+           L 122,116
+           C 112,105 101,101 85,99 Z"
+        fill="#F0E8D6" />
+
+  <!-- 3. Upper Warm Ivory Field -->
+  <path d="M 60,66
+           C 88,54 122,72 176,60
+           C 170,80 171,102 176,126
+           L 168,82
+           L 122,116
+           C 106,104 82,97 60,102 Z"
+        fill="#F0E8D6" />
+
+  <!-- 4. Integrated Dark Charcoal Checkmark Core -->
+  <path d="M 85,99
+           C 97,99 106,105 122,118
+           L 168,82
+           L 161,84
+           L 122,111
+           C 112,102 100,98 85,99 Z"
+        fill="#171814" />
+</svg>
+

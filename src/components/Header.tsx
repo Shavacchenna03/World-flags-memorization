@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './Header.module.css';
+import { VexiferLogo } from './VexiferLogo';
 import { createClient } from '../lib/supabase/client';
 import { getSupabaseConfig } from '../lib/supabase/config';
 import type { User } from '@supabase/supabase-js';
@@ -94,7 +95,9 @@ export function Header() {
           aria-label="Vexifer Home"
           onClick={() => setMobileMenuOpen(false)}
         >
-          <span className={styles.brandMark} aria-hidden="true">✦</span>
+          <span className={styles.brandLogo} aria-hidden="true">
+            <VexiferLogo size={26} />
+          </span>
           <span className={styles.brandName}>Vexifer</span>
           <span className={styles.brandScope}>195 Nations</span>
         </Link>

@@ -31,6 +31,20 @@
   flex-shrink: 0;
 }
 
+.brandLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.brand:hover .brandLogo {
+  transform: scale(1.06);
+}
+
 .brandMark {
   display: inline-flex;
   align-items: center;
